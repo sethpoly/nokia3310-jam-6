@@ -310,9 +310,9 @@ MonoBehaviour:
   playerTransform: {fileID: 313272120}
   balloonPref: {fileID: 4106407498723358128, guid: 25b2a483a41c148469e70aa966fad109, type: 3}
   maxBalloonCount: 2
-  activeSlowdownMultiplier: 0.3
+  activeSlowdownMultiplier: 0.5
   passiveSlowdownPerBalloon: 50
-  secondsUntilBurst: 2
+  secondsUntilBurst: 1
   burstTimer: 0
 --- !u!1 &313272119
 GameObject:
