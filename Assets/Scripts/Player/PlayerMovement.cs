@@ -4,7 +4,7 @@ public class PlayerMovement: MonoBehaviour
 {
     [SerializeField] private float fallSpeed = 50f;
     [SerializeField] private float horizontalSpeed = 100f;
-    private float slowDownMultiplier = 0f;
+    private float currentSlowDownMultiplier = 0f;
     private Rigidbody2D rb;
 
     private float horizontal;
@@ -34,7 +34,12 @@ public class PlayerMovement: MonoBehaviour
 
     private float GetFallSpeed()
     {
-        float multipler = slowDownMultiplier + 1;
+        float multipler = currentSlowDownMultiplier + 1;
         return vertical * fallSpeed / multipler;
+    }
+
+    public void SetSlowdownMultiplier(float multiplier)
+    {
+        currentSlowDownMultiplier = multiplier;
     }
 }

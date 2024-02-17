@@ -8,5 +8,10 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
     }
+
+    public void SetSlowdownMultiplier(float multiplier)
+    {
+        playerMovement.SetSlowdownMultiplier(multiplier);
+    }
     
 }
