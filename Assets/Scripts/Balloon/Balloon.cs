@@ -4,32 +4,39 @@ using UnityEngine;
 
 public class Balloon : MonoBehaviour
 {
-    private Vector3 startingScale;
+    public Vector3 startingScale;
+    public readonly float minScale = .01f;
 
     void Awake()
     {
         startingScale = transform.localScale;
     }
     
-    public void Shrink(float amount)
+    public void Shrink(float targetScale)
     {
-        if(transform.localScale.x > 0) 
+        if(transform.localScale.x >= minScale) 
         {
-            transform.localScale = new(transform.localScale.x - amount, transform.localScale.y - amount, transform.localScale.z - amount);
+            transform.localScale = new(targetScale, targetScale, targetScale);
         }
         else {
             Debug.LogError("Cannot shrink balloon any more. It should POP!");
         }
     }
 
-    public void Grow(float amount)
+    public void Inflate(float targetScale)
     {
         if(transform.localScale.x < startingScale.x) 
         {
-            transform.localScale = new(transform.localScale.x + amount, transform.localScale.y + amount, transform.localScale.z + amount);
+            transform.localScale = new(targetScale, targetScale, targetScale);
         }
         else {
             transform.localScale = startingScale;
         }
+    }
+
+    public void Pop()
+    {
+        Debug.Log("Balloon POPPED!");
+        Destroy(this);
     }
 }

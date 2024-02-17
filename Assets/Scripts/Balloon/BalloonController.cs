@@ -15,6 +15,7 @@ public class BalloonController: MonoBehaviour
     private List<GameObject> balloons = new();
     [SerializeField] private float burstTimer = 0f;
 
+
     void Awake()
     {
         playerController = GetComponentInParent<PlayerController>();
@@ -85,30 +86,48 @@ public class BalloonController: MonoBehaviour
             burstTimer += Time.deltaTime;
 
             // Shrink balloon
-            balloon.Shrink(.1f);
+            Shrink(balloon);
 
             // Check if balloon should pop
             if(burstTimer >= secondsUntilBurst)
             {
-                BurstBalloon(balloonGameObject);
+                Pop(balloonGameObject);
             }
         }
         else if(burstTimer > 0) {
             burstTimer -= Time.deltaTime;
             // Inflate balloon
-            balloon.Grow(.1f);
+            Inflate(balloon);
         }
         else {
             burstTimer = 0f;
         }
     }
 
-    private void BurstBalloon(GameObject balloon)
+    private void Shrink(Balloon balloon)
     {
-        if(balloons.Remove(balloon)) 
+        float t = Mathf.Clamp01(burstTimer / secondsUntilBurst); // Normalized time
+
+        // Interpolate between initial scale and min scale based on time
+        float targetScale = Mathf.Lerp(balloon.startingScale.x, balloon.minScale, t);
+        balloon.Shrink(targetScale);
+    }
+
+    private void Inflate(Balloon balloon)
+    {
+        float t = Mathf.Clamp01(Mathf.Abs(burstTimer / secondsUntilBurst - 1)); // Normalized time
+
+        // Interpolate between initial scale and min scale based on time
+        float targetScale = Mathf.Lerp(balloon.minScale, balloon.startingScale.x, t);
+        balloon.Inflate(targetScale);
+    }
+
+    private void Pop(GameObject balloonObject)
+    {
+        Balloon balloon = balloonObject.GetComponent<Balloon>();
+        if(balloons.Remove(balloonObject)) 
         {
-            Debug.Log("Balloon POPPED!");
-            Destroy(balloon);
+            balloon.Pop();
             burstTimer = 0;
         }
     }
