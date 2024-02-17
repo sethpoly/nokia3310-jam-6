@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85609e8d8ca674afcb9ba78005b95d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallSpeed: 25
+  fallSpeed: 150
   horizontalSpeed: 100
 --- !u!1 &198886642
 GameObject:
@@ -310,8 +310,10 @@ MonoBehaviour:
   playerTransform: {fileID: 313272120}
   balloonPref: {fileID: 4106407498723358128, guid: 25b2a483a41c148469e70aa966fad109, type: 3}
   maxBalloonCount: 2
-  slowdownMultiplier: 2
+  activeSlowdownMultiplier: 0.3
+  passiveSlowdownPerBalloon: 50
   secondsUntilBurst: 2
+  burstTimer: 0
 --- !u!1 &313272119
 GameObject:
   m_ObjectHideFlags: 0

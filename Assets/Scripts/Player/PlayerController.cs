@@ -13,5 +13,10 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement.SetSlowdownMultiplier(multiplier);
     }
+
+    public void SetAdditionalPassiveSlowdown(float passiveSlowdown)
+    {
+        playerMovement.SetAdditionalPassiveSlowdown(passiveSlowdown);
+    }
     
 }
