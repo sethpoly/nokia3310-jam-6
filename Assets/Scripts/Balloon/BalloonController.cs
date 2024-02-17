@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,9 +9,11 @@ public class BalloonController: MonoBehaviour
     [SerializeField] private GameObject balloonPref;
     [SerializeField] private int maxBalloonCount = 2;
     [SerializeField] private float slowdownMultiplier = .3f;
+    [SerializeField] private float secondsUntilBurst = 2f;
     private PlayerController playerController;
     private bool actionHeld = false;
     private List<GameObject> balloons = new();
+    [SerializeField] private float burstTimer = 0f;
 
     void Awake()
     {
@@ -26,7 +29,11 @@ public class BalloonController: MonoBehaviour
 
     void Update()
     {
-        actionHeld = Input.GetKey(KeyCode.Space);
+        // Player input for holding balloon button to slow down
+        BalloonInput();
+
+        // Monitor balloon input and start/stop timers to burst balloons 
+        BalloonBurstMonitor();
     }
 
     private void InitializeBalloons() 
@@ -57,5 +64,52 @@ public class BalloonController: MonoBehaviour
         GameObject balloon = Instantiate(balloonPref, spawnPosition, spawnRotation, playerTransform);
         balloon.transform.Rotate(new(spawnRotation.x, spawnRotation.y, rotationOffset));
         balloons.Add(balloon);
+    }
+
+    private void BalloonInput()
+    {
+        actionHeld = Input.GetKey(KeyCode.Space);
+    }
+
+    private void BalloonBurstMonitor()
+    {
+        if(balloons.Count == 0) {
+            return;
+        }
+
+        GameObject balloonGameObject = balloons.Last();
+        Balloon balloon = balloonGameObject.GetComponent<Balloon>();
+
+        if(actionHeld)
+        {
+            burstTimer += Time.deltaTime;
+
+            // Shrink balloon
+            balloon.Shrink(.1f);
+
+            // Check if balloon should pop
+            if(burstTimer >= secondsUntilBurst)
+            {
+                BurstBalloon(balloonGameObject);
+            }
+        }
+        else if(burstTimer > 0) {
+            burstTimer -= Time.deltaTime;
+            // Inflate balloon
+            balloon.Grow(.1f);
+        }
+        else {
+            burstTimer = 0f;
+        }
+    }
+
+    private void BurstBalloon(GameObject balloon)
+    {
+        if(balloons.Remove(balloon)) 
+        {
+            Debug.Log("Balloon POPPED!");
+            Destroy(balloon);
+            burstTimer = 0;
+        }
     }
 }
