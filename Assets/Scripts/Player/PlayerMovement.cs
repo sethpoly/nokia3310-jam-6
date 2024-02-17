@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerMovement: MonoBehaviour 
 {
-    [SerializeField] private float fallSpeed = 1f;
-    [SerializeField] private float horizontalSpeed = 2f;
-    [SerializeField] private float slowDownMultiplier = .3f;
+    [SerializeField] private float fallSpeed = 50f;
+    [SerializeField] private float horizontalSpeed = 100f;
+    private float slowDownMultiplier = 0f;
     private Rigidbody2D rb;
 
     private float horizontal;
-    private float vertical;
+    private readonly float vertical = -1;
 
     void Awake()
     {
@@ -17,8 +17,8 @@ public class PlayerMovement: MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 move = new Vector2(horizontal, vertical);
-        move = horizontalSpeed * Time.fixedDeltaTime * move.normalized;
+        Vector3 move = new Vector2(horizontal * horizontalSpeed, GetFallSpeed());
+        move = Time.fixedDeltaTime * move;
         rb.velocity = move;
     }
 
@@ -30,5 +30,11 @@ public class PlayerMovement: MonoBehaviour
     private void MovementInput()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+    }
+
+    private float GetFallSpeed()
+    {
+        float multipler = slowDownMultiplier + 1;
+        return vertical * fallSpeed / multipler;
     }
 }
