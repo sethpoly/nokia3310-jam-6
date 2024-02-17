@@ -4,9 +4,10 @@ public class PlayerMovement: MonoBehaviour
 {
     [SerializeField] private float fallSpeed = 50f;
     [SerializeField] private float horizontalSpeed = 100f;
-    private float currentSlowDownMultiplier = 0f;
+    private float activeSlowDownMultiplier = 0f;
+    private float additionalPassiveSlowdown = 0f;
     private Rigidbody2D rb;
-
+ 
     private float horizontal;
     private readonly float vertical = -1;
 
@@ -34,12 +35,18 @@ public class PlayerMovement: MonoBehaviour
 
     private float GetFallSpeed()
     {
-        float multipler = currentSlowDownMultiplier + 1;
-        return vertical * fallSpeed / multipler;
+        float multipler = activeSlowDownMultiplier + 1;
+        return vertical * fallSpeed / multipler + additionalPassiveSlowdown;
     }
 
     public void SetSlowdownMultiplier(float multiplier)
     {
-        currentSlowDownMultiplier = multiplier;
+        activeSlowDownMultiplier = multiplier;
+    }
+
+    // Additional force to add when balloons pop, etc.
+    public void SetAdditionalPassiveSlowdown(float passiveSlowdown)
+    {
+        this.additionalPassiveSlowdown = passiveSlowdown;
     }
 }

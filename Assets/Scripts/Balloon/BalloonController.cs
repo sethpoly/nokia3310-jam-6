@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BalloonController: MonoBehaviour 
@@ -8,7 +7,8 @@ public class BalloonController: MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameObject balloonPref;
     [SerializeField] private int maxBalloonCount = 2;
-    [SerializeField] private float slowdownMultiplier = .3f;
+    [SerializeField] private float activeSlowdownMultiplier = .3f;
+    [SerializeField] private float passiveSlowdownPerBalloon = 50f;
     [SerializeField] private float secondsUntilBurst = 2f;
     private PlayerController playerController;
     private bool actionHeld = false;
@@ -19,13 +19,17 @@ public class BalloonController: MonoBehaviour
     void Awake()
     {
         playerController = GetComponentInParent<PlayerController>();
+    }
+
+    void Start()
+    {
         InitializeBalloons();
     }
 
     void FixedUpdate()
     {
         // If button is held, set slowdown in movement script
-        playerController.SetSlowdownMultiplier(actionHeld ? slowdownMultiplier : 0f);
+        playerController.SetSlowdownMultiplier(actionHeld ? (activeSlowdownMultiplier * balloons.Count) : 0f);
     }
 
     void Update()
@@ -65,6 +69,7 @@ public class BalloonController: MonoBehaviour
         GameObject balloon = Instantiate(balloonPref, spawnPosition, spawnRotation, playerTransform);
         balloon.transform.Rotate(new(spawnRotation.x, spawnRotation.y, rotationOffset));
         balloons.Add(balloon);
+        OnBalloonListChange();
     }
 
     private void BalloonInput()
@@ -129,6 +134,13 @@ public class BalloonController: MonoBehaviour
         {
             balloon.Pop();
             burstTimer = 0;
+            OnBalloonListChange();
         }
+    }
+
+    private void OnBalloonListChange()
+    {
+        float totalPassiveSlowdown = balloons.Count * passiveSlowdownPerBalloon;
+        playerController.SetAdditionalPassiveSlowdown(totalPassiveSlowdown);
     }
 }
