@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - spike
+  - Door
   layers:
   - Default
   - TransparentFX
