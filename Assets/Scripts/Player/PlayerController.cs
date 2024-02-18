@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         playerMovement.SetOnGround(playerCollision.onGround);
+        playerMovement.SetOnWall(playerCollision.wallSide);
     }
 
     public void SetSlowdownMultiplier(float multiplier)
