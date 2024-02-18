@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
         playerCollision.OnSpikeCollision += OnSpikeCollision;
     }
 
+    void Update()
+    {
+        playerMovement.SetOnGround(playerCollision.onGround);
+    }
+
     public void SetSlowdownMultiplier(float multiplier)
     {
         playerMovement.SetSlowdownMultiplier(multiplier);

@@ -11,6 +11,8 @@ public class PlayerMovement: MonoBehaviour
     private float horizontal;
     private readonly float vertical = -1;
 
+    [SerializeField] private bool onGround = false;
+
     void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
@@ -36,7 +38,7 @@ public class PlayerMovement: MonoBehaviour
     private float GetFallSpeed()
     {
         float multipler = activeSlowDownMultiplier + 1;
-        return vertical * fallSpeed / multipler + additionalPassiveSlowdown;
+        return onGround ? 0 : vertical * fallSpeed / multipler + additionalPassiveSlowdown;
     }
 
     public void SetSlowdownMultiplier(float multiplier)
@@ -48,5 +50,10 @@ public class PlayerMovement: MonoBehaviour
     public void SetAdditionalPassiveSlowdown(float passiveSlowdown)
     {
         this.additionalPassiveSlowdown = passiveSlowdown;
+    }
+
+    public void SetOnGround(bool onGround)
+    {
+        this.onGround = onGround;
     }
 }
