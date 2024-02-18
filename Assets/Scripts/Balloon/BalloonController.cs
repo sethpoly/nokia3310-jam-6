@@ -59,13 +59,13 @@ public class BalloonController: MonoBehaviour
             return;
         }
 
-        float offset = currentBalloonCount > 0 ? .5f : -.5f;
+        float offset = currentBalloonCount > 0 ? 4f : -4f;
         float rotationOffset = currentBalloonCount > 0 ? -18f : 18f;
         Vector3 spawnPosition = playerTransform.position;
         Quaternion spawnRotation = playerTransform.rotation;
 
         spawnPosition.x += offset; 
-        spawnPosition.y += 1;
+        spawnPosition.y += 8;
         GameObject balloon = Instantiate(balloonPref, spawnPosition, spawnRotation, playerTransform);
         balloon.transform.Rotate(new(spawnRotation.x, spawnRotation.y, rotationOffset));
         balloons.Add(balloon);
