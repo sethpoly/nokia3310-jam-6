@@ -3,10 +3,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private PlayerMovement playerMovement;
+    private PlayerCollision playerCollision;
 
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerCollision = GetComponent<PlayerCollision>();
+        playerCollision.OnSpikeCollision += OnSpikeCollision;
     }
 
     public void SetSlowdownMultiplier(float multiplier)
@@ -18,5 +21,10 @@ public class PlayerController : MonoBehaviour
     {
         playerMovement.SetAdditionalPassiveSlowdown(passiveSlowdown);
     }
-    
+
+    private void OnSpikeCollision() 
+    {
+        Debug.Log("Collided with spike");
+        Destroy(this.gameObject);
+    }
 }

@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "UnderCave.sln"
+    "dotnet.defaultSolution": "UnderCave.sln",
+    "dotnet.preferCSharpExtension": true
 }
