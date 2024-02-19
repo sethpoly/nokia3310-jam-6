@@ -44,9 +44,14 @@ public class PlayerCollision: MonoBehaviour
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
 
         // Check spike collision
-        if(Physics2D.OverlapBox((Vector2)transform.position, environmentColliderSize, environmentLayer)) 
+        var envCollison = Physics2D.OverlapBox((Vector2)transform.position, environmentColliderSize, environmentLayer);
         {
-            OnSpikeCollision.Invoke();
+            if (envCollison != null) {
+                if(envCollison.gameObject.CompareTag("spike"))
+                {
+                    OnSpikeCollision.Invoke();
+                }
+            }
         }
 
         if(onRightWall)
