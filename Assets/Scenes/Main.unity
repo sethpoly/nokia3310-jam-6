@@ -157,6 +157,7 @@ MonoBehaviour:
   levels:
   - {fileID: 2747143061221938065, guid: 51d65ac683fb347d691eb0b8ab671acb, type: 3}
   - {fileID: 9112175531687362147, guid: 5c59cc988c07943688ddad3f7c25616e, type: 3}
+  - {fileID: 2747143061221938065, guid: c11d6ec7ee5e144d792e63be0e75ad3e, type: 3}
   currentLevelIndex: -1
   player: {fileID: 313272119}
   playerStartingPosition: {x: 0, y: 0}
@@ -395,7 +396,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3136672531400039009, guid: aa15789d5d91cd048ac26a3f6deaafd1, type: 3}
       propertyPath: fallSpeed
-      value: 1100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3136672531400039020, guid: aa15789d5d91cd048ac26a3f6deaafd1, type: 3}
       propertyPath: gameManager
