@@ -7,10 +7,9 @@ public class GameManager: MonoBehaviour
     [SerializeField] private TransitionHandler transitionHandler;
     [SerializeField] private List<Level> levels = new();
     [SerializeField] private int currentLevelIndex = -1;
-
     [SerializeField] private GameObject player;
-
     [SerializeField] private Vector2 playerStartingPosition;
+    private Level currentLevel;
 
     void Awake()
     {
@@ -69,9 +68,10 @@ public class GameManager: MonoBehaviour
         }
         Level level = levels[levelIndex];
         StartCoroutine(transitionHandler.LoadLevel(1, onCompletion: () => {
-            Instantiate(level);
+            var levelInstance = Instantiate(level);
             player.transform.position = playerStartingPosition;
             currentLevelIndex = levelIndex;
+            currentLevel = levelInstance;
             Debug.Log("Starting level " + level.title);
         }));
     }
@@ -83,7 +83,6 @@ public class GameManager: MonoBehaviour
             Debug.LogError("Cannot dispose level with index " + levelIndex);
             return;
         }
-        Level level = levels[levelIndex];
-        Destroy(level.gameObject);
+        Destroy(currentLevel.gameObject);
     }
 }

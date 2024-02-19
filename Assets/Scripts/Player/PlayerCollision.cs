@@ -8,6 +8,7 @@ public class PlayerCollision: MonoBehaviour
     [Header("Layers")]
     public LayerMask groundLayer;
     public LayerMask wallLayer;
+    public LayerMask environmentLayer;
 
     [Space]
 
@@ -25,7 +26,9 @@ public class PlayerCollision: MonoBehaviour
     public Collider2D groundCollider;
     public Collider2D leftWallCollider;
     public Collider2D rightWallCollider;
+    public Collider2D environmentCollider;
 
+    public Vector2 environmentColliderSize;
     public float collisionRadius = 0.25f;
     public Vector2 bottomOffset, leftOffset, rightOffset;
     private Color debugCollisionColor = Color.red;
@@ -39,6 +42,12 @@ public class PlayerCollision: MonoBehaviour
 
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
+
+        // Check spike collision
+        if(Physics2D.OverlapBox((Vector2)transform.position, environmentColliderSize, environmentLayer)) 
+        {
+            OnSpikeCollision.Invoke();
+        }
 
         if(onRightWall)
         {
@@ -54,15 +63,7 @@ public class PlayerCollision: MonoBehaviour
         groundCollider = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
         leftWallCollider = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
         rightWallCollider = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer);
-    }
-
-    void OnCollisionEnter2D(Collision2D collisionInfo)
-    {
-        if(collisionInfo.gameObject.CompareTag("spike")) 
-        {
-            OnSpikeCollision.Invoke();
-            return;
-        }
+        environmentCollider = Physics2D.OverlapBox((Vector2)transform.position, environmentColliderSize, environmentLayer);
     }
 
     void OnDrawGizmos()
@@ -72,5 +73,6 @@ public class PlayerCollision: MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+        Gizmos.DrawWireCube((Vector2)transform.position, environmentColliderSize);
     }
 }
