@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    public Transform spawnLocation;
     public string title;
     public int collectedCoins = 0;
 
