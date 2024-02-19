@@ -5,6 +5,7 @@ public class PlayerCollision: MonoBehaviour
 {
     public event Action OnSpikeCollision;
     public event Action OnDoorCollision;
+    public event Action<Coin> OnCoinCollision;
 
     [Header("Layers")]
     public LayerMask groundLayer;
@@ -17,7 +18,6 @@ public class PlayerCollision: MonoBehaviour
     public bool onWall;
     public bool onRightWall;
     public bool onLeftWall;
-
     public Wall wallSide;
 
     [Space]
@@ -60,17 +60,22 @@ public class PlayerCollision: MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check spike collision
-        if (other != null) {
-            if(other.gameObject.CompareTag("spike"))
-            {
-                OnSpikeCollision.Invoke();
-            }
+        // Spikes
+        if(other.gameObject.CompareTag("spike"))
+        {
+            OnSpikeCollision.Invoke();
+        }
 
-            if(other.gameObject.CompareTag("Door")) 
-            {
-                OnDoorCollision.Invoke();
-            }
+        // Level exit
+        if(other.gameObject.CompareTag("Door")) 
+        {
+            OnDoorCollision.Invoke();
+        }
+
+        // Coins
+        if(other.gameObject.CompareTag("Coin"))
+        {
+            OnCoinCollision.Invoke(other.GetComponent<Coin>());
         }
     }
 

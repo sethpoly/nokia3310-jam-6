@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
         playerCollision = GetComponent<PlayerCollision>();
         playerCollision.OnSpikeCollision += OnSpikeCollision;
         playerCollision.OnDoorCollision += OnDoorCollision;
+        playerCollision.OnCoinCollision += OnCoinCollision;
     }
 
     void Update()
@@ -43,5 +44,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Collided with door");
         gameManager.NextLevel();
+    }
+
+    private void OnCoinCollision(Coin coin)
+    {
+        Debug.Log("Collided with coin");
+        gameManager.CollectCoin(coin);
     }
 }

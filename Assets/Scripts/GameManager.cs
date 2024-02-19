@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class GameManager: MonoBehaviour
@@ -13,6 +12,7 @@ public class GameManager: MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Vector2 playerStartingPosition;
     [SerializeField] private Quaternion playerStartingRotation;
+    [SerializeField] private int totalCollectedCoins = 0;
     private Level currentLevel;
 
     void Awake()
@@ -53,6 +53,9 @@ public class GameManager: MonoBehaviour
 
                 // Reset player incase balloons were popped
                 RespawnPlayer();
+
+                // Secure collected coins
+                SaveCollectedCoinsFromCurrentLevel();
             });
         } else
         {
@@ -112,5 +115,21 @@ public class GameManager: MonoBehaviour
         player = newPlayer;
         playerStartingPosition = player.transform.position;
         playerStartingRotation = player.transform.rotation;
+    }
+
+    // Increments the collected coin count for the current level
+    //
+    // This value will be reset whenever the level is restarted
+    public void CollectCoin(Coin coin)
+    {
+        currentLevel.CollectCoin(coin);
+    }
+
+    private void SaveCollectedCoinsFromCurrentLevel()
+    {
+        if(levels.ElementAtOrDefault(currentLevelIndex) != null) 
+        {
+            totalCollectedCoins += levels[currentLevelIndex].collectedCoins;
+        }
     }
 }

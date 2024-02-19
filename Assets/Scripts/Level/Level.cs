@@ -4,5 +4,12 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField] public string title;
+    public string title;
+    public int collectedCoins = 0;
+
+    public void CollectCoin(Coin coin)
+    {
+        Destroy(coin.gameObject);
+        collectedCoins += 1;
+    }
 }
