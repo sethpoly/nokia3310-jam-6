@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -39,12 +40,13 @@ public class GameManager: MonoBehaviour
 
     public void NextLevel()
     {
-        DisposeLevel(currentLevelIndex);
         int nextIndex = currentLevelIndex + 1;
 
         if(levels.Count - 1 >= nextIndex)
         {
-            StartLevel(nextIndex);
+            StartLevel(nextIndex, () => {
+                DisposeLevel(currentLevelIndex);
+            });
         } else
         {
             Debug.LogError("No next level found");
@@ -55,16 +57,17 @@ public class GameManager: MonoBehaviour
     {
         if (levels.Count - 1 >= currentLevelIndex) 
         {
-            Debug.Log("Restarting current level: " + levels[currentLevelIndex].title);
-            DisposeLevel(currentLevelIndex);
-            StartLevel(currentLevelIndex);
+            StartLevel(currentLevelIndex, onTransitionStart: () => {
+                Debug.Log("Restarting current level: " + levels[currentLevelIndex].title);
+                DisposeLevel(currentLevelIndex);
+            });
         } else
         {
             Debug.LogError("Cannot restart level. No level found");
         }
     }
 
-    private void StartLevel(int levelIndex)
+    private void StartLevel(int levelIndex, Action onTransitionStart)
     {
         if(levels.Count - 1 < levelIndex) 
         {
@@ -73,6 +76,7 @@ public class GameManager: MonoBehaviour
         }
         Level level = levels[levelIndex];
         StartCoroutine(transitionHandler.LoadLevel(1, onCompletion: () => {
+            onTransitionStart.Invoke();
             var levelInstance = Instantiate(level);
             player.transform.position = playerStartingPosition;
             currentLevelIndex = levelIndex;
