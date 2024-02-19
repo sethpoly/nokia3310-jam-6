@@ -50,6 +50,9 @@ public class GameManager: MonoBehaviour
         {
             StartLevel(nextIndex, () => {
                 DisposeLevel(currentLevelIndex);
+
+                // Reset player incase balloons were popped
+                RespawnPlayer();
             });
         } else
         {
