@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class GameManager: MonoBehaviour
@@ -13,6 +12,7 @@ public class GameManager: MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Vector2 playerStartingPosition;
     [SerializeField] private Quaternion playerStartingRotation;
+    [SerializeField] private int totalCollectedCoins = 0;
     private Level currentLevel;
 
     void Awake()
@@ -21,7 +21,7 @@ public class GameManager: MonoBehaviour
         playerStartingRotation = player.transform.rotation;
         if(levels.Count > 0)
         {
-             NextLevel();
+             StartLevel(0, () => {});
         } else
         {
             Debug.LogError("Cannot start first level. No levels in list");
@@ -49,7 +49,17 @@ public class GameManager: MonoBehaviour
         if(levels.Count - 1 >= nextIndex)
         {
             StartLevel(nextIndex, () => {
+                // Secure collected coins
+                SaveCollectedCoinsFromCurrentLevel();
+
+                // Get next player spawn location
+                var playerSpawnLocation = currentLevel.spawnLocation;
+
+                // Destroy level just completed
                 DisposeLevel(currentLevelIndex);
+
+                // Reset player incase balloons were popped
+                RespawnPlayer(playerSpawnLocation.position);
             });
         } else
         {
@@ -63,10 +73,12 @@ public class GameManager: MonoBehaviour
         {
             StartLevel(currentLevelIndex, onTransitionStart: () => {
                 Debug.Log("Restarting current level: " + levels[currentLevelIndex].title);
+                var playerSpawnLocation = currentLevel.spawnLocation.position;
+
                 DisposeLevel(currentLevelIndex);
 
                 // Destroy & recreate player
-                RespawnPlayer();
+                RespawnPlayer(playerSpawnLocation);
             });
         } else
         {
@@ -85,7 +97,7 @@ public class GameManager: MonoBehaviour
         StartCoroutine(transitionHandler.LoadLevel(1, onCompletion: () => {
             onTransitionStart.Invoke();
             var levelInstance = Instantiate(level);
-            player.transform.position = playerStartingPosition;
+            player.transform.position = levelInstance.spawnLocation.position;
             currentLevelIndex = levelIndex;
             currentLevel = levelInstance;
             Debug.Log("Starting level " + level.title);
@@ -102,12 +114,31 @@ public class GameManager: MonoBehaviour
         Destroy(currentLevel.gameObject);
     }
 
-    private void RespawnPlayer() 
+    private void RespawnPlayer(Vector2 spawnLocation) 
     {
         Destroy(player);
-        GameObject newPlayer = Instantiate(playerPrefab, playerStartingPosition, playerStartingRotation);
+        GameObject newPlayer = Instantiate(playerPrefab, spawnLocation, playerStartingRotation);
         player = newPlayer;
         playerStartingPosition = player.transform.position;
         playerStartingRotation = player.transform.rotation;
+    }
+
+    // Increments the collected coin count for the current level
+    //
+    // This value will be reset whenever the level is restarted
+    public void CollectCoin(Coin coin)
+    {
+        currentLevel.CollectCoin(coin);
+    }
+
+    private void SaveCollectedCoinsFromCurrentLevel()
+    {
+        if(currentLevel != null) 
+        {
+            totalCollectedCoins += currentLevel.collectedCoins;
+        } else 
+        {
+            Debug.Log("Cannot save collected coins. No level found");
+        }
     }
 }

@@ -7,8 +7,8 @@ public class BalloonController: MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameObject balloonPref;
     [SerializeField] private int maxBalloonCount = 2;
-    [SerializeField] private float activeSlowdownMultiplier = .3f;
-    [SerializeField] private float passiveSlowdownPerBalloon = 50f;
+    [SerializeField] private float activeSlowdownMultiplier = .8f;
+    [SerializeField] private float passiveSlowdownPerBalloon = 600f;
     [SerializeField] private float secondsUntilBurst = 2f;
     private PlayerController playerController;
     private bool actionHeld = false;

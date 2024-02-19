@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement: MonoBehaviour 
 {
-    [SerializeField] private float fallSpeed = 50f;
+    [SerializeField] private float fallSpeed = 1100f;
     [SerializeField] private float horizontalSpeed = 100f;
     private float activeSlowDownMultiplier = 0f;
     private float additionalPassiveSlowdown = 0f;
