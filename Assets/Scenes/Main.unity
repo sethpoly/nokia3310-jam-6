@@ -155,9 +155,10 @@ MonoBehaviour:
   playerPrefab: {fileID: 3136672531630681932, guid: aa15789d5d91cd048ac26a3f6deaafd1, type: 3}
   transitionHandler: {fileID: 156468519}
   levels:
-  - {fileID: 2747143061221938065, guid: 51d65ac683fb347d691eb0b8ab671acb, type: 3}
-  - {fileID: 9112175531687362147, guid: 5c59cc988c07943688ddad3f7c25616e, type: 3}
-  - {fileID: 2747143061221938065, guid: c11d6ec7ee5e144d792e63be0e75ad3e, type: 3}
+  - {fileID: 2637528743515688896, guid: 4d206150c59c04f73b98cf2c1a928cd6, type: 3}
+  - {fileID: 2637528743515688896, guid: 488022f05ae36461c8d65128970edeac, type: 3}
+  - {fileID: 2637528743515688896, guid: d3788fcc7060b4aa796f1de96ca45266, type: 3}
+  - {fileID: 2637528743515688896, guid: 833e3b47f9407412c902a32e97244f21, type: 3}
   currentLevelIndex: -1
   player: {fileID: 313272119}
   playerStartingPosition: {x: 0, y: 0}
@@ -239,6 +240,10 @@ PrefabInstance:
     - target: {fileID: 7193760419165826501, guid: 7ee49c9d7bc644051b90aa1e6069ad7f, type: 3}
       propertyPath: m_Name
       value: Transition
+      objectReference: {fileID: 0}
+    - target: {fileID: 7193760419165826501, guid: 7ee49c9d7bc644051b90aa1e6069ad7f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7193760419217587780, guid: 7ee49c9d7bc644051b90aa1e6069ad7f, type: 3}
       propertyPath: m_AnchoredPosition.y
