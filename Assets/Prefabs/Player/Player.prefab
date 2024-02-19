@@ -49,7 +49,7 @@ MonoBehaviour:
   maxBalloonCount: 1
   activeSlowdownMultiplier: 0.8
   passiveSlowdownPerBalloon: 600
-  secondsUntilBurst: 1.5
+  secondsUntilBurst: 0.85
   burstTimer: 0
 --- !u!1 &3136672531400039023
 GameObject:
