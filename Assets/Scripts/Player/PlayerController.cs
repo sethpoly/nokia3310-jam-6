@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;
     private PlayerMovement playerMovement;
     private PlayerCollision playerCollision;
 
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerCollision = GetComponent<PlayerCollision>();
         playerCollision.OnSpikeCollision += OnSpikeCollision;
+        playerCollision.OnDoorCollision += OnDoorCollision;
     }
 
     void Update()
@@ -31,6 +33,12 @@ public class PlayerController : MonoBehaviour
     private void OnSpikeCollision() 
     {
         Debug.Log("Collided with spike");
-        Destroy(this.gameObject);
+        Destroy(gameObject);
+    }
+
+    private void OnDoorCollision()
+    {
+        Debug.Log("Collided with door");
+        gameManager.NextLevel();
     }
 }

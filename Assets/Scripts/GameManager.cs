@@ -89,7 +89,7 @@ public class GameManager: MonoBehaviour
     {
         if(levels.ElementAtOrDefault(levelIndex) == null) 
         {
-            Debug.LogError("Cannot dispose level with index " + levelIndex);
+            Debug.Log("Cannot dispose level with index " + levelIndex);
             return;
         }
         Destroy(currentLevel.gameObject);

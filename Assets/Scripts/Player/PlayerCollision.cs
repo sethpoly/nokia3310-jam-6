@@ -4,6 +4,7 @@ using System;
 public class PlayerCollision: MonoBehaviour 
 {
     public event Action OnSpikeCollision;
+    public event Action OnDoorCollision;
 
     [Header("Layers")]
     public LayerMask groundLayer;
@@ -26,9 +27,7 @@ public class PlayerCollision: MonoBehaviour
     public Collider2D groundCollider;
     public Collider2D leftWallCollider;
     public Collider2D rightWallCollider;
-    public Collider2D environmentCollider;
 
-    public Vector2 environmentColliderSize;
     public float collisionRadius = 0.25f;
     public Vector2 bottomOffset, leftOffset, rightOffset;
     private Color debugCollisionColor = Color.red;
@@ -42,17 +41,6 @@ public class PlayerCollision: MonoBehaviour
 
         onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer);
         onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
-
-        // Check spike collision
-        var envCollison = Physics2D.OverlapBox((Vector2)transform.position, environmentColliderSize, environmentLayer);
-        {
-            if (envCollison != null) {
-                if(envCollison.gameObject.CompareTag("spike"))
-                {
-                    OnSpikeCollision.Invoke();
-                }
-            }
-        }
 
         if(onRightWall)
         {
@@ -68,7 +56,22 @@ public class PlayerCollision: MonoBehaviour
         groundCollider = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
         leftWallCollider = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, wallLayer);
         rightWallCollider = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, wallLayer);
-        environmentCollider = Physics2D.OverlapBox((Vector2)transform.position, environmentColliderSize, environmentLayer);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Check spike collision
+        if (other != null) {
+            if(other.gameObject.CompareTag("spike"))
+            {
+                OnSpikeCollision.Invoke();
+            }
+
+            if(other.gameObject.CompareTag("Door")) 
+            {
+                OnDoorCollision.Invoke();
+            }
+        }
     }
 
     void OnDrawGizmos()
@@ -78,6 +81,5 @@ public class PlayerCollision: MonoBehaviour
         Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
         Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
-        Gizmos.DrawWireCube((Vector2)transform.position, environmentColliderSize);
     }
 }
