@@ -30,6 +30,11 @@ public class GameManager: MonoBehaviour
         {
             NextLevel();
         }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
     }
 
     public void NextLevel()
