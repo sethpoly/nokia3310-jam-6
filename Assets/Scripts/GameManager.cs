@@ -1,20 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class GameManager: MonoBehaviour
 {
+    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private TransitionHandler transitionHandler;
     [SerializeField] private List<Level> levels = new();
     [SerializeField] private int currentLevelIndex = -1;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector2 playerStartingPosition;
+    [SerializeField] private Quaternion playerStartingRotation;
     private Level currentLevel;
 
     void Awake()
     {
         playerStartingPosition = player.transform.position;
+        playerStartingRotation = player.transform.rotation;
         if(levels.Count > 0)
         {
              NextLevel();
@@ -60,6 +64,9 @@ public class GameManager: MonoBehaviour
             StartLevel(currentLevelIndex, onTransitionStart: () => {
                 Debug.Log("Restarting current level: " + levels[currentLevelIndex].title);
                 DisposeLevel(currentLevelIndex);
+
+                // Destroy & recreate player
+                RespawnPlayer();
             });
         } else
         {
@@ -93,5 +100,14 @@ public class GameManager: MonoBehaviour
             return;
         }
         Destroy(currentLevel.gameObject);
+    }
+
+    private void RespawnPlayer() 
+    {
+        Destroy(player);
+        GameObject newPlayer = Instantiate(playerPrefab, playerStartingPosition, playerStartingRotation);
+        player = newPlayer;
+        playerStartingPosition = player.transform.position;
+        playerStartingRotation = player.transform.rotation;
     }
 }
