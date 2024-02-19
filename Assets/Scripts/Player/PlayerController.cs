@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        // Get GameManager ref
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
         playerMovement = GetComponent<PlayerMovement>();
         playerCollision = GetComponent<PlayerCollision>();
         playerCollision.OnSpikeCollision += OnSpikeCollision;

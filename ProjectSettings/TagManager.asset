@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Wall
   - Ground
+  - GameManager
   layers:
   - Default
   - TransparentFX
