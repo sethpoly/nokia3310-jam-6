@@ -11,6 +11,9 @@ public class PlayerMovement: MonoBehaviour
     private float horizontal;
     private readonly float vertical = -1;
 
+    private bool onGround = false;
+    private Wall onWall = Wall.none;
+
     void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
@@ -18,7 +21,7 @@ public class PlayerMovement: MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 move = new Vector2(horizontal * horizontalSpeed, GetFallSpeed());
+        Vector3 move = new Vector2(GetHorizontalSpeed(), GetFallSpeed());
         move = Time.fixedDeltaTime * move;
         rb.velocity = move;
     }
@@ -36,7 +39,19 @@ public class PlayerMovement: MonoBehaviour
     private float GetFallSpeed()
     {
         float multipler = activeSlowDownMultiplier + 1;
-        return vertical * fallSpeed / multipler + additionalPassiveSlowdown;
+        return onGround ? 0 : vertical * fallSpeed / multipler + additionalPassiveSlowdown;
+    }
+
+    private float GetHorizontalSpeed()
+    {
+        float baseSpeed = horizontal * horizontalSpeed;
+        return onWall switch
+        {
+            Wall.left => baseSpeed < 0 ? 0 : baseSpeed,
+            Wall.right => baseSpeed < 0 ? baseSpeed : 0,
+            Wall.none => baseSpeed,
+            _ => baseSpeed,
+        };
     }
 
     public void SetSlowdownMultiplier(float multiplier)
@@ -48,5 +63,15 @@ public class PlayerMovement: MonoBehaviour
     public void SetAdditionalPassiveSlowdown(float passiveSlowdown)
     {
         this.additionalPassiveSlowdown = passiveSlowdown;
+    }
+
+    public void SetOnGround(bool onGround)
+    {
+        this.onGround = onGround;
+    }
+
+    public void SetOnWall(Wall wall)
+    {
+        this.onWall = wall;
     }
 }
