@@ -49,13 +49,14 @@ public class GameManager: MonoBehaviour
         if(levels.Count - 1 >= nextIndex)
         {
             StartLevel(nextIndex, () => {
+                // Secure collected coins
+                SaveCollectedCoinsFromCurrentLevel();
+
+                // Destroy level just completed
                 DisposeLevel(currentLevelIndex);
 
                 // Reset player incase balloons were popped
                 RespawnPlayer();
-
-                // Secure collected coins
-                SaveCollectedCoinsFromCurrentLevel();
             });
         } else
         {
@@ -127,9 +128,12 @@ public class GameManager: MonoBehaviour
 
     private void SaveCollectedCoinsFromCurrentLevel()
     {
-        if(levels.ElementAtOrDefault(currentLevelIndex) != null) 
+        if(currentLevel != null) 
         {
-            totalCollectedCoins += levels[currentLevelIndex].collectedCoins;
+            totalCollectedCoins += currentLevel.collectedCoins;
+        } else 
+        {
+            Debug.Log("Cannot save collected coins. No level found");
         }
     }
 }
