@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Ground
   - GameManager
+  - Coin
   layers:
   - Default
   - TransparentFX
