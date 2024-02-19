@@ -51,6 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "nokia3310-jam-6.sln",
+    "dotnet.defaultSolution": "UnderCave.sln",
     "dotnet.preferCSharpExtension": true
 }
