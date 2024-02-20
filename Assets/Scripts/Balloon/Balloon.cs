@@ -1,14 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Balloon : MonoBehaviour
 {
+    private Animator animator;
     public Vector3 startingScale;
     public readonly float minScale = .01f;
 
     void Awake()
     {
+        animator = GetComponent<Animator>();
         startingScale = transform.localScale;
     }
     
@@ -37,6 +39,14 @@ public class Balloon : MonoBehaviour
     public void Pop()
     {
         Debug.Log("Balloon POPPED!");
+        StartCoroutine(PopAnimation());
+    }
+
+    private IEnumerator PopAnimation()
+    {
+        transform.localScale = startingScale * 1.5f;
+        animator.Play("ExplodeBalloon");
+        yield return new WaitForSeconds(.5f);
         Destroy(this);
     }
 }
