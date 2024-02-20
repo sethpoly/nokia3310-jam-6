@@ -10,11 +10,11 @@ public class BalloonController: MonoBehaviour
     [SerializeField] private float activeSlowdownMultiplier = .8f;
     [SerializeField] private float passiveSlowdownPerBalloon = 600f;
     [SerializeField] private float secondsUntilBurst = 2f;
+    [SerializeField] private GameObject balloonLocation;
     private PlayerController playerController;
     private bool actionHeld = false;
     private List<GameObject> balloons = new();
     [SerializeField] private float burstTimer = 0f;
-
 
     void Awake()
     {
@@ -59,15 +59,11 @@ public class BalloonController: MonoBehaviour
             return;
         }
 
-        float offset = currentBalloonCount > 0 ? 4f : -4f;
-        float rotationOffset = currentBalloonCount > 0 ? -18f : 18f;
-        Vector3 spawnPosition = playerTransform.position;
+        Vector3 spawnPosition = balloonLocation.transform.position;
+        spawnPosition.y += 2;
         Quaternion spawnRotation = playerTransform.rotation;
 
-        spawnPosition.x += offset; 
-        spawnPosition.y += 8;
-        GameObject balloon = Instantiate(balloonPref, spawnPosition, spawnRotation, playerTransform);
-        balloon.transform.Rotate(new(spawnRotation.x, spawnRotation.y, rotationOffset));
+        GameObject balloon = Instantiate(balloonPref, spawnPosition, spawnRotation, balloonLocation.transform);
         balloons.Add(balloon);
         OnBalloonListChange();
     }

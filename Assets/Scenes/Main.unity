@@ -405,10 +405,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3136672531400039009, guid: aa15789d5d91cd048ac26a3f6deaafd1, type: 3}
-      propertyPath: fallSpeed
-      value: 1000
-      objectReference: {fileID: 0}
     - target: {fileID: 3136672531400039020, guid: aa15789d5d91cd048ac26a3f6deaafd1, type: 3}
       propertyPath: gameManager
       value: 
