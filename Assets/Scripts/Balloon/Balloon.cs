@@ -44,7 +44,7 @@ public class Balloon : MonoBehaviour
 
     private IEnumerator PopAnimation()
     {
-        transform.localScale = startingScale * 1.5f;
+        transform.localScale = startingScale * 1.2f;
         animator.Play("ExplodeBalloon");
         yield return new WaitForSeconds(.5f);
         Destroy(this);
