@@ -17,11 +17,10 @@ public class GameManager: MonoBehaviour
 
     void Awake()
     {
-        playerStartingPosition = player.transform.position;
-        playerStartingRotation = player.transform.rotation;
         if(levels.Count > 0)
         {
-             StartLevel(0, () => {});
+            // Start first level
+             StartLevel(0);
         } else
         {
             Debug.LogError("Cannot start first level. No levels in list");
@@ -48,19 +47,7 @@ public class GameManager: MonoBehaviour
 
         if(levels.Count - 1 >= nextIndex)
         {
-            StartLevel(nextIndex, () => {
-                // Secure collected coins
-                SaveCollectedCoinsFromCurrentLevel();
-
-                // Get next player spawn location
-                var playerSpawnLocation = currentLevel.spawnLocation;
-
-                // Destroy level just completed
-                DisposeLevel(currentLevelIndex);
-
-                // Reset player incase balloons were popped
-                RespawnPlayer(playerSpawnLocation.position);
-            });
+            StartLevel(nextIndex);
         } else
         {
             Debug.LogError("No next level found");
@@ -71,7 +58,7 @@ public class GameManager: MonoBehaviour
     {
         if (levels.Count - 1 >= currentLevelIndex) 
         {
-            StartCoroutine(transitionHandler.LoadLevel(1, onCompletion: () => {
+            StartCoroutine(transitionHandler.LoadLevel(onCompletion: () => {
                 var playerSpawnLocation = currentLevel.spawnLocation.position;
                 DisposeLevel(currentLevelIndex);
                 RespawnPlayer(playerSpawnLocation);
@@ -88,15 +75,29 @@ public class GameManager: MonoBehaviour
         }
     }
 
-    private void StartLevel(int levelIndex, Action onTransitionStart)
+    private void StartLevel(int levelIndex)
     {
         if(levels.Count - 1 < levelIndex) 
         {
             Debug.LogError("Cannot start level with index " + levelIndex);
             return;
         }
-        StartCoroutine(transitionHandler.LoadLevel(1, onCompletion: () => {
-            onTransitionStart.Invoke();
+        StartCoroutine(transitionHandler.LoadLevel(onCompletion: () => {
+            // Secure collected coins
+            SaveCollectedCoinsFromCurrentLevel();
+
+            // Get next player spawn location
+            if(currentLevel != null)
+            {
+                playerStartingPosition = currentLevel.spawnLocation.position;
+            }
+
+            // Destroy level just completed
+            DisposeLevel(currentLevelIndex);
+
+            // Reset player incase balloons were popped
+            RespawnPlayer(playerStartingPosition);
+
             Level level = levels[levelIndex];
             var levelInstance = Instantiate(level);
             player.transform.position = levelInstance.spawnLocation.position;
@@ -122,7 +123,6 @@ public class GameManager: MonoBehaviour
         Destroy(player);
         GameObject newPlayer = Instantiate(playerPrefab, spawnLocation, playerStartingRotation);
         player = newPlayer;
-        playerStartingPosition = player.transform.position;
         playerStartingRotation = player.transform.rotation;
     }
 
