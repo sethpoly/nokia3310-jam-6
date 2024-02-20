@@ -71,15 +71,17 @@ public class GameManager: MonoBehaviour
     {
         if (levels.Count - 1 >= currentLevelIndex) 
         {
-            StartLevel(currentLevelIndex, onTransitionStart: () => {
-                Debug.Log("Restarting current level: " + levels[currentLevelIndex].title);
+            StartCoroutine(transitionHandler.LoadLevel(1, onCompletion: () => {
                 var playerSpawnLocation = currentLevel.spawnLocation.position;
-
                 DisposeLevel(currentLevelIndex);
-
-                // Destroy & recreate player
                 RespawnPlayer(playerSpawnLocation);
-            });
+
+                Level level = levels[currentLevelIndex];
+                var levelInstance = Instantiate(level);
+                player.transform.position = levelInstance.spawnLocation.position;
+                currentLevel = levelInstance;
+                Debug.Log("Restarting level " + level.title);
+            }));
         } else
         {
             Debug.LogError("Cannot restart level. No level found");
@@ -93,9 +95,9 @@ public class GameManager: MonoBehaviour
             Debug.LogError("Cannot start level with index " + levelIndex);
             return;
         }
-        Level level = levels[levelIndex];
         StartCoroutine(transitionHandler.LoadLevel(1, onCompletion: () => {
             onTransitionStart.Invoke();
+            Level level = levels[levelIndex];
             var levelInstance = Instantiate(level);
             player.transform.position = levelInstance.spawnLocation.position;
             currentLevelIndex = levelIndex;
@@ -112,6 +114,7 @@ public class GameManager: MonoBehaviour
             return;
         }
         Destroy(currentLevel.gameObject);
+        Debug.Log("Disposed level");
     }
 
     private void RespawnPlayer(Vector2 spawnLocation) 

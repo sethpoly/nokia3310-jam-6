@@ -10,21 +10,27 @@ public class Level : MonoBehaviour
 
     void Start()
     {
-        totalCoinsInLevel = CountTotalCoinsInLevel();
         endDoor = FindObjectOfType<Door>();
+    }
+
+    void Update()
+    {
+        totalCoinsInLevel = CountTotalCoinsInLevel();
+        AttemptDoorOpen();
     }
 
     // Count all gameobjects in scene with Coin tag & assign total count
     private int CountTotalCoinsInLevel()
     {
-        var totalCoins = FindObjectsOfType<Coin>();
-        return totalCoins.Length;
+        int coinCount = FindObjectsOfType<Coin>().Length;
+        Debug.Log(coinCount);
+        return coinCount;
     }
 
     // Returns boolean if all coins are collected in level
     private bool CheckAllCoinsCollected()
     {
-        return collectedCoins == totalCoinsInLevel;
+        return totalCoinsInLevel == 0;
     }
 
     private void AttemptDoorOpen()

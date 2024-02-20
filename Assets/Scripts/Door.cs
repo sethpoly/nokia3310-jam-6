@@ -21,5 +21,6 @@ public class Door: MonoBehaviour
     {
         animator.Play("Door_Open");
         isOpen = true;
+        Debug.Log("Opening door");
     }
 }
