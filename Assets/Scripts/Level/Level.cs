@@ -23,7 +23,6 @@ public class Level : MonoBehaviour
     private int CountTotalCoinsInLevel()
     {
         int coinCount = FindObjectsOfType<Coin>().Length;
-        Debug.Log(coinCount);
         return coinCount;
     }
 
