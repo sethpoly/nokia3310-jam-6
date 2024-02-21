@@ -160,6 +160,8 @@ MonoBehaviour:
   - {fileID: 2637528743515688896, guid: d3788fcc7060b4aa796f1de96ca45266, type: 3}
   - {fileID: 2637528743515688896, guid: 833e3b47f9407412c902a32e97244f21, type: 3}
   - {fileID: 2637528743515688896, guid: 0c79f8b832ec34478914e6f7f8c9bc81, type: 3}
+  - {fileID: 2637528743515688896, guid: e979ffb71613c49a6a37bf9bf075c7fa, type: 3}
+  - {fileID: 2637528743515688896, guid: e59da826b0fd24f0a94aad6526947f15, type: 3}
   currentLevelIndex: -1
   player: {fileID: 0}
   playerStartingPosition: {x: 0, y: 35}
