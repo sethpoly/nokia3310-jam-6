@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     private PlayerMovement playerMovement;
     private PlayerCollision playerCollision;
+    private BalloonController balloonController;
     private Animator animator;
 
     void Awake()
@@ -15,6 +16,9 @@ public class PlayerController : MonoBehaviour
 
         // Animator ref
         animator = GetComponent<Animator>();
+
+        // Balloon ref
+        balloonController = GetComponentInChildren<BalloonController>();
 
         playerMovement = GetComponent<PlayerMovement>();
         playerCollision = GetComponent<PlayerCollision>();
@@ -61,6 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.Play("Player_Death");
         playerMovement.DisableMovement();
+        balloonController.DetachBalloon();
         yield return new WaitForSeconds(.5f);
         Destroy(gameObject);
     }

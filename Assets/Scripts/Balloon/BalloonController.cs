@@ -12,6 +12,7 @@ public class BalloonController: MonoBehaviour
     [SerializeField] private float secondsUntilBurst = 2f;
     [SerializeField] private GameObject balloonLocation;
     private PlayerController playerController;
+    [SerializeField] private GameObject stringRenderer;
     private bool actionHeld = false;
     private List<GameObject> balloons = new();
     [SerializeField] private float burstTimer = 0f;
@@ -138,5 +139,19 @@ public class BalloonController: MonoBehaviour
     {
         float totalPassiveSlowdown = balloons.Count * passiveSlowdownPerBalloon;
         playerController.SetAdditionalPassiveSlowdown(totalPassiveSlowdown);
+    }
+
+    /// <summary>
+    /// Detach balloon so it floats upwards
+    /// </summary>
+    public void DetachBalloon()
+    {
+        Debug.Log("Detaching balloon");
+        Destroy(stringRenderer);
+
+        if(balloons.Last().TryGetComponent<Balloon>(out var balloon))
+        {
+            balloon.Detach();
+        }
     }
 }

@@ -7,13 +7,25 @@ public class Balloon : MonoBehaviour
     private Animator animator;
     public Vector3 startingScale;
     public readonly float minScale = .01f;
+    private bool isDetached = false;
+    [SerializeField] private float detachFloatUpSpeed;
+    [SerializeField] private GameObject stringPrefab;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         startingScale = transform.localScale;
     }
-    
+
+    void Update()
+    {
+        
+        if(isDetached)
+        {
+            transform.Translate(detachFloatUpSpeed * Time.deltaTime * Vector3.up);
+        }
+    }
+
     public void Shrink(float targetScale)
     {
         if(transform.localScale.x >= minScale) 
@@ -40,6 +52,18 @@ public class Balloon : MonoBehaviour
     {
         Debug.Log("Balloon POPPED!");
         StartCoroutine(PopAnimation());
+    }
+
+    public void Detach()
+    {
+        transform.parent = null;
+
+        // Add string
+        var spawnPos = transform.position;
+        spawnPos.y -= 6;
+        Instantiate(stringPrefab, spawnPos, transform.rotation, gameObject.transform);
+
+        isDetached = true;
     }
 
     private IEnumerator PopAnimation()
