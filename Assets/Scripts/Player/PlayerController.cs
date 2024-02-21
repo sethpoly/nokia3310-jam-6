@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -5,11 +6,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     private PlayerMovement playerMovement;
     private PlayerCollision playerCollision;
+    private Animator animator;
 
     void Awake()
     {
         // Get GameManager ref
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+
+        // Animator ref
+        animator = GetComponent<Animator>();
 
         playerMovement = GetComponent<PlayerMovement>();
         playerCollision = GetComponent<PlayerCollision>();
@@ -37,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private void OnSpikeCollision() 
     {
         Debug.Log("Collided with spike");
-        Destroy(gameObject);
+        StartCoroutine(OnPlayerDestroyed());
     }
 
     private void OnDoorCollision()
@@ -50,5 +55,13 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Collided with coin");
         gameManager.CollectCoin(coin);
+    }
+
+    private IEnumerator OnPlayerDestroyed()
+    {
+        animator.Play("Player_Death");
+        playerMovement.DisableMovement();
+        yield return new WaitForSeconds(.5f);
+        Destroy(gameObject);
     }
 }

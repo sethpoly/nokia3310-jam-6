@@ -74,4 +74,13 @@ public class PlayerMovement: MonoBehaviour
     {
         this.onWall = wall;
     }
+
+    /// <summary>
+    ///  Disable movement when object is in destruction process
+    /// </summary>
+    public void DisableMovement()
+    {
+        horizontalSpeed = 0f;
+        fallSpeed = 0f;
+    }
 }
