@@ -12,6 +12,7 @@ TagManager:
   - Coin
   - Fan
   - Balloon
+  - RestartInterface
   layers:
   - Default
   - TransparentFX
