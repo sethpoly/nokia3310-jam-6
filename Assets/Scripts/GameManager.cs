@@ -115,6 +115,9 @@ public class GameManager: MonoBehaviour
             return;
         }
         Destroy(currentLevel.gameObject);
+        foreach(GameObject gameObject in GameObject.FindGameObjectsWithTag("Balloon")) {
+            Destroy(gameObject);
+        }
         Debug.Log("Disposed level");
     }
 
