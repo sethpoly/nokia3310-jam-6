@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameManager: MonoBehaviour
 {
+    [SerializeField] private Screenshake screenshake;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private TransitionHandler transitionHandler;
     [SerializeField] private List<Level> levels = new();
@@ -146,5 +147,10 @@ public class GameManager: MonoBehaviour
         {
             Debug.Log("Cannot save collected coins. No level found");
         }
+    }
+
+    public void Screenshake() 
+    {
+        StartCoroutine(screenshake.Shake(duration: .1f, magnitude: 1.2f));
     }
 }

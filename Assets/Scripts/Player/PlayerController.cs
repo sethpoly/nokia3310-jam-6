@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerCollision playerCollision;
     private BalloonController balloonController;
     private Animator animator;
+    private bool deathStateOccurred = false;
 
     void Awake()
     {
@@ -46,7 +47,11 @@ public class PlayerController : MonoBehaviour
     private void OnSpikeCollision() 
     {
         Debug.Log("Collided with spike");
-        StartCoroutine(OnPlayerDestroyed());
+        if(!deathStateOccurred) 
+        {
+            deathStateOccurred = true;
+            StartCoroutine(OnPlayerDestroyed());
+        }
     }
 
     private void OnDoorCollision()
@@ -66,6 +71,7 @@ public class PlayerController : MonoBehaviour
         animator.Play("Player_Death");
         playerMovement.DisableMovement();
         balloonController.DetachBalloon();
+        gameManager.Screenshake();
         yield return new WaitForSeconds(.5f);
         Destroy(gameObject);
     }

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f82a7d15d5c41008042d60c3e3565d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenshake: {fileID: 519420034}
   playerPrefab: {fileID: 3136672531630681932, guid: aa15789d5d91cd048ac26a3f6deaafd1, type: 3}
   transitionHandler: {fileID: 156468519}
   levels:
@@ -304,6 +305,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -397,3 +399,15 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ae04b49c2af0c49a36e35ec95f5dca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
