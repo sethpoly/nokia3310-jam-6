@@ -9,7 +9,6 @@ public class PlayerCollision: MonoBehaviour
 
     [Header("Layers")]
     public LayerMask groundLayer;
-    //public LayerMask wallLayer;
     public LayerMask environmentLayer;
 
     [Space]
@@ -28,19 +27,19 @@ public class PlayerCollision: MonoBehaviour
     public Collider2D leftWallCollider;
     public Collider2D rightWallCollider;
 
-    public float collisionRadius = 0.25f;
+    public Vector2 groundCollisionSize, wallCollisionSize;
     public Vector2 bottomOffset, leftOffset, rightOffset;
     private Color debugCollisionColor = Color.red;
 
     // Update is called once per frame
     void Update()
     {
-        onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
-        onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer)
-            || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
+        onGround = Physics2D.OverlapBox((Vector2)transform.position + bottomOffset, groundCollisionSize, 0, groundLayer);
+        onWall = Physics2D.OverlapBox((Vector2)transform.position + rightOffset, wallCollisionSize, 0, groundLayer)
+            || Physics2D.OverlapBox((Vector2)transform.position + leftOffset, wallCollisionSize,0,  groundLayer);
 
-        onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
-        onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
+        onRightWall = Physics2D.OverlapBox((Vector2)transform.position + rightOffset, wallCollisionSize, 0, groundLayer);
+        onLeftWall = Physics2D.OverlapBox((Vector2)transform.position + leftOffset, wallCollisionSize, 0, groundLayer);
 
         if(onRightWall)
         {
@@ -53,9 +52,9 @@ public class PlayerCollision: MonoBehaviour
         }
 
         // Get other collider object from each collision circle
-        groundCollider = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
-        leftWallCollider = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
-        rightWallCollider = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
+        groundCollider = Physics2D.OverlapBox((Vector2)transform.position + bottomOffset, groundCollisionSize, 0, groundLayer);
+        leftWallCollider = Physics2D.OverlapBox((Vector2)transform.position + leftOffset, wallCollisionSize, 0, groundLayer);
+        rightWallCollider = Physics2D.OverlapBox((Vector2)transform.position + rightOffset, wallCollisionSize, 0, groundLayer);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -83,8 +82,8 @@ public class PlayerCollision: MonoBehaviour
     {
         Gizmos.color = debugCollisionColor;
 
-        Gizmos.DrawWireSphere((Vector2)transform.position + bottomOffset, collisionRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + rightOffset, collisionRadius);
-        Gizmos.DrawWireSphere((Vector2)transform.position + leftOffset, collisionRadius);
+        Gizmos.DrawWireCube((Vector2)transform.position + bottomOffset, groundCollisionSize);
+        Gizmos.DrawWireCube((Vector2)transform.position + rightOffset, wallCollisionSize);
+        Gizmos.DrawWireCube((Vector2)transform.position + leftOffset, wallCollisionSize);
     }
 }
