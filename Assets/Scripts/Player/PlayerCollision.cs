@@ -75,7 +75,7 @@ public class PlayerCollision: MonoBehaviour
         // Coins
         if(other.gameObject.CompareTag("Coin"))
         {
-            OnCoinCollision.Invoke(other.GetComponent<Coin>());
+            OnCoinCollision.Invoke(other.GetComponentInChildren<Coin>());
         }
     }
 
