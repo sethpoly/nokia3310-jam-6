@@ -149,9 +149,12 @@ public class BalloonController: MonoBehaviour
         Debug.Log("Detaching balloon");
         Destroy(stringRenderer);
 
-        if(balloons.Last().TryGetComponent<Balloon>(out var balloon))
+        if(balloons.Count > 0) 
         {
-            balloon.Detach();
+            if(balloons.Last().TryGetComponent<Balloon>(out var balloon))
+            {
+                balloon.Detach();
+            }   
         }
     }
 }
