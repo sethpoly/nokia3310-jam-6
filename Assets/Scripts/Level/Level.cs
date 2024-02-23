@@ -4,6 +4,7 @@ public class Level : MonoBehaviour
 {
     private GameManager gameManager;
     public Transform spawnLocation;
+    public float rotationSpeed = 0f;
     public string title;
     public int collectedCoins = 0;
     private int totalCoinsInLevel;

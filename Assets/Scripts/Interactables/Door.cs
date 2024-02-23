@@ -3,7 +3,6 @@ using UnityEngine;
 public class Door: MonoBehaviour
 {
     private Animator animator;
-    private BoxCollider2D boxCollider;
     public bool isOpen = false;
     
     void Start()
