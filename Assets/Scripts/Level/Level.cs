@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    private GameManager gameManager;
     public Transform spawnLocation;
     public string title;
     public int collectedCoins = 0;
@@ -11,6 +12,7 @@ public class Level : MonoBehaviour
     void Start()
     {
         endDoor = FindObjectOfType<Door>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -36,7 +38,11 @@ public class Level : MonoBehaviour
     {
         if(CheckAllCoinsCollected())
         {
-            endDoor.OpenDoor();
+            bool didOpen = endDoor.OpenDoor();
+            if(didOpen)
+            {
+                gameManager.PlaySound(Sound.doorOpening);
+            }
         }
     }
 

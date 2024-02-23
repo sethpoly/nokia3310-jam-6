@@ -4,4 +4,5 @@ public enum Sound {
     levelEnd,
     coinCollected,
     doorCollisionWhileClosed,
+    doorOpening,
 }

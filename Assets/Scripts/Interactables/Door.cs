@@ -11,10 +11,12 @@ public class Door: MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void OpenDoor()
+    public bool OpenDoor()
     {
+        if(isOpen) return false;
         animator.Play("Door_Open");
         isOpen = true;
         Debug.Log("Opening door");
+        return true;
     }
 }

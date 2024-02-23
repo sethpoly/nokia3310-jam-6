@@ -19,6 +19,7 @@ public class GameManager: MonoBehaviour
     [SerializeField] private AudioClip levelEnd;
     [SerializeField] private AudioClip coinCollected;
     [SerializeField] private AudioClip doorCollisionWhileClosed;
+    [SerializeField] private AudioClip doorOpening;
 
     [SerializeField] private int totalCollectedCoins = 0;
     private Level currentLevel;
@@ -208,6 +209,7 @@ public class GameManager: MonoBehaviour
             Sound.levelEnd => levelEnd,
             Sound.coinCollected => coinCollected,
             Sound.doorCollisionWhileClosed => doorCollisionWhileClosed,
+            Sound.doorOpening => doorOpening,
             _ => balloonPop,
         };
     }
