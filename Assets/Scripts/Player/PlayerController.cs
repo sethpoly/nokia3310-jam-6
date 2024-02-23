@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private bool deathStateOccurred = false;
     private bool invincible = false;
+    private bool playedDoorClosedSound = false;
 
     void Awake()
     {
@@ -67,6 +68,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             gameManager.SetRestartInterfaceVisibility(true);
+
+            if(!playedDoorClosedSound)
+            {
+                playedDoorClosedSound = true;
+                gameManager.PlaySound(Sound.doorCollisionWhileClosed);
+            }
         }
     }
 

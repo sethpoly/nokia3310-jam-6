@@ -14,11 +14,20 @@ public class GameManager: MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Vector2 playerStartingPosition;
     [SerializeField] private Quaternion playerStartingRotation;
+    [SerializeField] private AudioClip playerDie;
+    [SerializeField] private AudioClip balloonPop;
+    [SerializeField] private AudioClip levelEnd;
+    [SerializeField] private AudioClip coinCollected;
+    [SerializeField] private AudioClip doorCollisionWhileClosed;
+    [SerializeField] private AudioClip doorOpening;
+
     [SerializeField] private int totalCollectedCoins = 0;
     private Level currentLevel;
+    private AudioSource audioSource;
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         if(levels.Count > 0)
         {
             // Start first level
@@ -132,6 +141,8 @@ public class GameManager: MonoBehaviour
 
         // Hide restart interface
         SetRestartInterfaceVisibility(value: false);
+
+        PlaySound(Sound.levelEnd);
     }
 
     // Increments the collected coin count for the current level
@@ -140,6 +151,10 @@ public class GameManager: MonoBehaviour
     public void CollectCoin(Coin coin)
     {
         currentLevel.CollectCoin(coin);
+        if(coin != null)
+        {
+            PlaySound(Sound.coinCollected);
+        }
     }
 
     private void SaveCollectedCoinsFromCurrentLevel()
@@ -169,10 +184,33 @@ public class GameManager: MonoBehaviour
     public void OnPlayerDestroyed()
     {
         SetRestartInterfaceVisibility(value: true);
+        PlaySound(Sound.playerDie);
     }
 
     public void Screenshake() 
     {
         StartCoroutine(screenshake.Shake(duration: .1f, magnitude: 1.2f));
+    }
+
+    public void PlaySound(Sound sound)
+    {
+        AudioClip clip = GetAudioClip(sound);
+        audioSource.Stop();
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+    private AudioClip GetAudioClip(Sound sound)
+    {
+        return sound switch
+        {
+            Sound.playerDie => playerDie,
+            Sound.balloonPop => balloonPop,
+            Sound.levelEnd => levelEnd,
+            Sound.coinCollected => coinCollected,
+            Sound.doorCollisionWhileClosed => doorCollisionWhileClosed,
+            Sound.doorOpening => doorOpening,
+            _ => balloonPop,
+        };
     }
 }

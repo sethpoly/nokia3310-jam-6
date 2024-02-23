@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BalloonController: MonoBehaviour 
 {
+    private GameManager gameManager;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameObject balloonPref;
     [SerializeField] private int maxBalloonCount = 2;
@@ -20,6 +21,7 @@ public class BalloonController: MonoBehaviour
     void Awake()
     {
         playerController = GetComponentInParent<PlayerController>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Start()
@@ -133,6 +135,7 @@ public class BalloonController: MonoBehaviour
             IncinerateString();
             burstTimer = 0;
             OnBalloonListChange();
+            gameManager.PlaySound(Sound.balloonPop);
         }
     }
 
