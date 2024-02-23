@@ -153,7 +153,7 @@ public class GameManager: MonoBehaviour
         }
     }
 
-    private void SetRestartInterfaceVisibility(bool value)
+    public void SetRestartInterfaceVisibility(bool value)
     {
         var existingInterface = GameObject.FindGameObjectWithTag("RestartInterface");
         if(existingInterface != null)

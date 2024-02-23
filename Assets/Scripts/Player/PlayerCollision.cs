@@ -4,7 +4,7 @@ using System;
 public class PlayerCollision: MonoBehaviour 
 {
     public event Action OnSpikeCollision;
-    public event Action OnDoorCollision;
+    public event Action<Door> OnDoorCollision;
     public event Action<Coin> OnCoinCollision;
 
     [Header("Layers")]
@@ -68,7 +68,7 @@ public class PlayerCollision: MonoBehaviour
         // Level exit
         if(other.gameObject.CompareTag("Door")) 
         {
-            OnDoorCollision.Invoke();
+            OnDoorCollision.Invoke(other.GetComponent<Door>());
         }
 
         // Coins

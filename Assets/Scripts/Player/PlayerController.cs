@@ -54,10 +54,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDoorCollision()
+    private void OnDoorCollision(Door door)
     {
         Debug.Log("Collided with door");
-        gameManager.NextLevel();
+
+        if(door.isOpen)
+        {
+            gameManager.NextLevel();
+        } 
+        else
+        {
+            gameManager.SetRestartInterfaceVisibility(true);
+        }
     }
 
     private void OnCoinCollision(Coin coin)
