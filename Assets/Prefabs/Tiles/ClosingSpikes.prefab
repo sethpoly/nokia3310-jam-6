@@ -49,6 +49,8 @@ MonoBehaviour:
   target1: {fileID: 6938354179458537852}
   target2: {fileID: 6938354180633771788}
   closingSpeed: 5
+  loop: 0
+  delay: 0
 --- !u!1001 &3145417099856814757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -103,6 +105,22 @@ PrefabInstance:
     - target: {fileID: 5471654135325662633, guid: 53c411d5f66ae4605ab0827428435ea3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471654135325662634, guid: 53c411d5f66ae4605ab0827428435ea3, type: 3}
+      propertyPath: m_Size.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471654135325662634, guid: 53c411d5f66ae4605ab0827428435ea3, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9032291
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471654135325662634, guid: 53c411d5f66ae4605ab0827428435ea3, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.01999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471654135325662634, guid: 53c411d5f66ae4605ab0827428435ea3, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5079797
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5471654135325662635, guid: 53c411d5f66ae4605ab0827428435ea3, type: 3}
@@ -166,6 +184,14 @@ PrefabInstance:
     - target: {fileID: 3108141462983917397, guid: 8a2ded406dc394e4395f869d7634a243, type: 3}
       propertyPath: m_Name
       value: SpikePlatform
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108141462983917399, guid: 8a2ded406dc394e4395f869d7634a243, type: 3}
+      propertyPath: m_Size.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108141462983917399, guid: 8a2ded406dc394e4395f869d7634a243, type: 3}
+      propertyPath: m_Size.y
+      value: 1.903229
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a2ded406dc394e4395f869d7634a243, type: 3}
