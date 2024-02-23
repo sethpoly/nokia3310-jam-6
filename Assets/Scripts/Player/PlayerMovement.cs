@@ -67,7 +67,6 @@ public class PlayerMovement: MonoBehaviour
 
     public void SetOnGround(bool onGround)
     {
-        Debug.Log("On ground = " + onGround);
         this.onGround = onGround;
     }
 

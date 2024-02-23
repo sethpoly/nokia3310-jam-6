@@ -168,7 +168,6 @@ public class GameManager: MonoBehaviour
 
     public void OnPlayerDestroyed()
     {
-        Screenshake();
         SetRestartInterfaceVisibility(value: true);
     }
 

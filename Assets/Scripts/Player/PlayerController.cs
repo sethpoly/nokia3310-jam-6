@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
         animator.Play("Player_Death");
         playerMovement.DisableMovement();
         balloonController.DetachBalloon();
+        gameManager.Screenshake();
         gameManager.OnPlayerDestroyed();
         yield return new WaitForSeconds(.5f);
         Destroy(gameObject);
