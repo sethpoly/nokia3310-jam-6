@@ -6,6 +6,7 @@ public class ClosingPlatform : MonoBehaviour
     public Transform target2; // Second object to move
     public float closingSpeed = 5f; // Speed at which the objects move together
     public bool loop = false;
+    public float delay = 0;
 
     private Vector3 initialPosition1;
     private Vector3 initialPosition2;
@@ -17,7 +18,8 @@ public class ClosingPlatform : MonoBehaviour
         // Store initial positions of the objects
         initialPosition1 = target1.position;
         initialPosition2 = target2.position;
-        StartClosing();
+        
+        Invoke(nameof(StartClosing), delay);
     }
 
     void Update()
