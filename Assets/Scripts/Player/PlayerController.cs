@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private BalloonController balloonController;
     private Animator animator;
     private bool deathStateOccurred = false;
+    private bool invincible = false;
 
     void Awake()
     {
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     private void OnSpikeCollision() 
     {
         Debug.Log("Collided with spike");
-        if(!deathStateOccurred) 
+        if(!deathStateOccurred && !invincible) 
         {
             deathStateOccurred = true;
             StartCoroutine(OnPlayerDestroyed());
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if(door.isOpen)
         {
+            invincible = true;
             gameManager.NextLevel();
         } 
         else
