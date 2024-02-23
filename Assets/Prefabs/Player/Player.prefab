@@ -500,10 +500,11 @@ MonoBehaviour:
   groundCollider: {fileID: 0}
   leftWallCollider: {fileID: 0}
   rightWallCollider: {fileID: 0}
-  collisionRadius: 1
-  bottomOffset: {x: 0, y: -2}
-  leftOffset: {x: -2, y: 0}
-  rightOffset: {x: 2, y: 0}
+  groundCollisionSize: {x: 3, y: 1}
+  wallCollisionSize: {x: 1, y: 5}
+  bottomOffset: {x: 0, y: -2.5}
+  leftOffset: {x: -2.5, y: 0.5}
+  rightOffset: {x: 2.5, y: 0.5}
 --- !u!61 &3136672531400039015
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -528,7 +529,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.9546084, y: 4.7029266}
+  m_Size: {x: 4, y: 4.7029266}
   m_EdgeRadius: 0
 --- !u!95 &3529336895276522961
 Animator:

@@ -42,7 +42,10 @@ public class Level : MonoBehaviour
 
     public void CollectCoin(Coin coin)
     {
-        Destroy(coin.gameObject);
+        if(coin != null)
+        {
+            Destroy(coin.gameObject);
+        }
         collectedCoins += 1;
         AttemptDoorOpen();
     }

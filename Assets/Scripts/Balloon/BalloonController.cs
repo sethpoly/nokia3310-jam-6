@@ -130,6 +130,7 @@ public class BalloonController: MonoBehaviour
         if(balloons.Remove(balloonObject)) 
         {
             balloon.Pop();
+            IncinerateString();
             burstTimer = 0;
             OnBalloonListChange();
         }
@@ -141,17 +142,25 @@ public class BalloonController: MonoBehaviour
         playerController.SetAdditionalPassiveSlowdown(totalPassiveSlowdown);
     }
 
+    private void IncinerateString()
+    {
+        Destroy(stringRenderer);
+    }
+
     /// <summary>
     /// Detach balloon so it floats upwards
     /// </summary>
     public void DetachBalloon()
     {
         Debug.Log("Detaching balloon");
-        Destroy(stringRenderer);
+        IncinerateString();
 
-        if(balloons.Last().TryGetComponent<Balloon>(out var balloon))
+        if(balloons.Count > 0) 
         {
-            balloon.Detach();
+            if(balloons.Last().TryGetComponent<Balloon>(out var balloon))
+            {
+                balloon.Detach();
+            }   
         }
     }
 }

@@ -10,6 +10,9 @@ TagManager:
   - Ground
   - GameManager
   - Coin
+  - Fan
+  - Balloon
+  - RestartInterface
   layers:
   - Default
   - TransparentFX

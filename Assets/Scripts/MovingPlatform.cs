@@ -14,6 +14,7 @@ public class MovingPlatform : MonoBehaviour
 
     void Start()
     {
+        transform.position = startPoint.position;
         nextPoint = endPoint.position; // Start by moving towards the end point
         StartCoroutine(DelayStart());
     }

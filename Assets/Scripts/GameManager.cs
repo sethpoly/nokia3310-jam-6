@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class GameManager: MonoBehaviour
 {
+    [SerializeField] private Screenshake screenshake;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject restartInterfacePrefab;
     [SerializeField] private TransitionHandler transitionHandler;
     [SerializeField] private List<Level> levels = new();
     [SerializeField] private int currentLevelIndex = -1;
@@ -115,6 +117,9 @@ public class GameManager: MonoBehaviour
             return;
         }
         Destroy(currentLevel.gameObject);
+        foreach(GameObject gameObject in GameObject.FindGameObjectsWithTag("Balloon")) {
+            Destroy(gameObject);
+        }
         Debug.Log("Disposed level");
     }
 
@@ -124,6 +129,9 @@ public class GameManager: MonoBehaviour
         GameObject newPlayer = Instantiate(playerPrefab, spawnLocation, playerStartingRotation);
         player = newPlayer;
         playerStartingRotation = player.transform.rotation;
+
+        // Hide restart interface
+        SetRestartInterfaceVisibility(value: false);
     }
 
     // Increments the collected coin count for the current level
@@ -143,5 +151,28 @@ public class GameManager: MonoBehaviour
         {
             Debug.Log("Cannot save collected coins. No level found");
         }
+    }
+
+    public void SetRestartInterfaceVisibility(bool value)
+    {
+        var existingInterface = GameObject.FindGameObjectWithTag("RestartInterface");
+        if(existingInterface != null)
+        {
+            Destroy(existingInterface);
+        }
+        if(value)
+        {
+            Instantiate(restartInterfacePrefab);
+        }
+    }
+
+    public void OnPlayerDestroyed()
+    {
+        SetRestartInterfaceVisibility(value: true);
+    }
+
+    public void Screenshake() 
+    {
+        StartCoroutine(screenshake.Shake(duration: .1f, magnitude: 1.2f));
     }
 }
