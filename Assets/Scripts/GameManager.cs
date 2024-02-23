@@ -8,6 +8,7 @@ public class GameManager: MonoBehaviour
     [SerializeField] private Screenshake screenshake;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject restartInterfacePrefab;
+    [SerializeField] private GameObject rKeyPrefab;
     [SerializeField] private TransitionHandler transitionHandler;
     [SerializeField] private List<Level> levels = new();
     [SerializeField] private int currentLevelIndex = -1;
@@ -175,9 +176,15 @@ public class GameManager: MonoBehaviour
         {
             Destroy(existingInterface);
         }
+        var existingRKey = GameObject.FindGameObjectWithTag("R_Key");
+        if(existingRKey != null)
+        {
+            Destroy(existingRKey);
+        }
         if(value)
         {
             Instantiate(restartInterfacePrefab);
+            Instantiate(rKeyPrefab);
         }
     }
 

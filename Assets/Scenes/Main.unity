@@ -156,6 +156,7 @@ MonoBehaviour:
   screenshake: {fileID: 519420034}
   playerPrefab: {fileID: 3136672531630681932, guid: aa15789d5d91cd048ac26a3f6deaafd1, type: 3}
   restartInterfacePrefab: {fileID: 440193043511047714, guid: b07bc38ff35e8474581bb0d014399ba5, type: 3}
+  rKeyPrefab: {fileID: 3119147977827279767, guid: fd846ca1c139e4874aaef97127284667, type: 3}
   transitionHandler: {fileID: 156468519}
   levels:
   - {fileID: 2637528743515688896, guid: 4d206150c59c04f73b98cf2c1a928cd6, type: 3}

@@ -13,6 +13,7 @@ TagManager:
   - Fan
   - Balloon
   - RestartInterface
+  - R_Key
   layers:
   - Default
   - TransparentFX
