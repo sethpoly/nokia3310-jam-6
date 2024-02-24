@@ -447,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3145417099324065287, guid: 08972cf83e59d4e59aabe7fb494e1143, type: 3}
       propertyPath: closingSpeed
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6938354179458537852, guid: 08972cf83e59d4e59aabe7fb494e1143, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4966,6 +4966,10 @@ PrefabInstance:
     - target: {fileID: 3145417099324065287, guid: 08972cf83e59d4e59aabe7fb494e1143, type: 3}
       propertyPath: loop
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145417099324065287, guid: 08972cf83e59d4e59aabe7fb494e1143, type: 3}
+      propertyPath: closingSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6938354179458537852, guid: 08972cf83e59d4e59aabe7fb494e1143, type: 3}
       propertyPath: m_LocalPosition.x
