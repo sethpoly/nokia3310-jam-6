@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -7,5 +8,16 @@ public class MenuManager : MonoBehaviour
 
     private void Update() {
         pressAnyKeyPrefab.SetActive(showPressAnyKey);
+
+        if(AnyKeyPressed())
+        {
+            SceneManager.LoadScene("Main");
+        }
+    }
+
+    private bool AnyKeyPressed()
+    {
+        if(!showPressAnyKey) return false;
+        return Input.anyKey;
     }
 }
