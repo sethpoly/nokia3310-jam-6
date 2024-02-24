@@ -175,6 +175,7 @@ MonoBehaviour:
   - {fileID: 2637528743515688896, guid: e73fb7e754b944a5caab3bfa74e419d1, type: 3}
   - {fileID: 2637528743515688896, guid: 95e78dbff9238425ea85f9ed1ad0b984, type: 3}
   - {fileID: 2637528743515688896, guid: 748a4a845539b5140a6e674f6ade63d9, type: 3}
+  - {fileID: 2637528743515688896, guid: e38c89567b076584b9c5d4203786bdcb, type: 3}
   currentLevelIndex: -1
   player: {fileID: 0}
   playerStartingPosition: {x: 0, y: 35}
