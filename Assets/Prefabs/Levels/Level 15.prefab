@@ -269,7 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnLocation: {fileID: 2172927541385151614}
-  rotationSpeed: 0.02
   title: Level 15
   collectedCoins: 0
 --- !u!1 &6003664017409822926
@@ -4600,7 +4599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 94829841536573596, guid: 8ca12273fd3e480439d3843d3799b322, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -32
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 94829841536573596, guid: 8ca12273fd3e480439d3843d3799b322, type: 3}
       propertyPath: m_LocalPosition.z

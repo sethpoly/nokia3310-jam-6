@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 94829841536573603}
   - component: {fileID: 1338448501483452990}
   - component: {fileID: 396964347716495985}
+  - component: {fileID: 5518408034573206561}
   m_Layer: 0
-  m_Name: RandomDoor
+  m_Name: Portal
   m_TagString: Door_Random
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 102d393122cf78b4ba39e7649bc7cea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd58c1dd1ff0b465f95e36f7cafde52f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,10 +97,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.5970011}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -110,7 +111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.6200523, y: 4.528204}
+  m_Size: {x: 8, y: 8}
   m_EdgeRadius: 0
 --- !u!114 &396964347716495985
 MonoBehaviour:
@@ -126,3 +127,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linkedPortal: {fileID: 0}
   used: 0
+--- !u!95 &5518408034573206561
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94829841536573602}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 44d90afddd2ae46b9828630ad497a6fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
