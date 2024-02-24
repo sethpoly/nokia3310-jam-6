@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
         playerCollision.OnSpikeCollision += OnSpikeCollision;
         playerCollision.OnDoorCollision += OnDoorCollision;
         playerCollision.OnCoinCollision += OnCoinCollision;
+        playerCollision.OnRandomDoorCollision += OnRandomDoorCollision;
     }
 
     void Update()
@@ -81,6 +82,16 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Collided with coin");
         gameManager.CollectCoin(coin);
+    }
+
+    private void OnRandomDoorCollision(Portal portal)
+    {
+        var portalPosition = portal.TeleportTo();
+        if(portalPosition != null) 
+        {
+            playerMovement.SetPlayerPosition(portalPosition.transform.position);
+            gameManager.PlaySound(Sound.teleport);
+        }
     }
 
     private IEnumerator OnPlayerDestroyed()

@@ -174,6 +174,9 @@ MonoBehaviour:
   - {fileID: 2637528743515688896, guid: 72476873ffaa74cec90be0931b6f4c77, type: 3}
   - {fileID: 2637528743515688896, guid: e73fb7e754b944a5caab3bfa74e419d1, type: 3}
   - {fileID: 2637528743515688896, guid: 95e78dbff9238425ea85f9ed1ad0b984, type: 3}
+  - {fileID: 2637528743515688896, guid: 748a4a845539b5140a6e674f6ade63d9, type: 3}
+  - {fileID: 2637528743515688896, guid: e38c89567b076584b9c5d4203786bdcb, type: 3}
+  - {fileID: 2637528743515688896, guid: 5582ceb8b42a4af4389c4b9ed86cb28c, type: 3}
   currentLevelIndex: -1
   player: {fileID: 0}
   playerStartingPosition: {x: 0, y: 35}
@@ -184,6 +187,7 @@ MonoBehaviour:
   coinCollected: {fileID: 8300000, guid: f8ff6c3f7ed404a62be79221add7ae5c, type: 3}
   doorCollisionWhileClosed: {fileID: 8300000, guid: f18c201bb16b64a27b77af3ad5d628a9, type: 3}
   doorOpening: {fileID: 8300000, guid: 1c82ebad44f064b0ab5503ff1f4f5241, type: 3}
+  teleport: {fileID: 8300000, guid: faa036a8b417c4cee902c26ca6ea0fd7, type: 3}
   totalCollectedCoins: 0
 --- !u!4 &129871879
 Transform:

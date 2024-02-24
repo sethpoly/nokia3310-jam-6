@@ -5,4 +5,5 @@ public enum Sound {
     coinCollected,
     doorCollisionWhileClosed,
     doorOpening,
+    teleport
 }

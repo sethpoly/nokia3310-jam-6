@@ -14,6 +14,7 @@ TagManager:
   - Balloon
   - RestartInterface
   - R_Key
+  - Door_Random
   layers:
   - Default
   - TransparentFX

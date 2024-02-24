@@ -6,6 +6,7 @@ public class PlayerCollision: MonoBehaviour
     public event Action OnSpikeCollision;
     public event Action<Door> OnDoorCollision;
     public event Action<Coin> OnCoinCollision;
+    public event Action<Portal> OnRandomDoorCollision;
 
     [Header("Layers")]
     public LayerMask groundLayer;
@@ -75,6 +76,12 @@ public class PlayerCollision: MonoBehaviour
         if(other.gameObject.CompareTag("Coin"))
         {
             OnCoinCollision.Invoke(other.GetComponentInChildren<Coin>());
+        }
+
+        // Random Door
+        if(other.gameObject.CompareTag("Door_Random"))
+        {
+            OnRandomDoorCollision.Invoke(other.GetComponent<Portal>());
         }
     }
 

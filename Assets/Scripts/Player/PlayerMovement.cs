@@ -83,4 +83,9 @@ public class PlayerMovement: MonoBehaviour
         horizontalSpeed = 0f;
         fallSpeed = 0f;
     }
+
+    public void SetPlayerPosition(Vector3 pos)
+    {
+        transform.parent.transform.position = pos;
+    }
 }
