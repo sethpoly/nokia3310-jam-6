@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
         if(portalPosition != null) 
         {
             playerMovement.SetPlayerPosition(portalPosition.transform.position);
+            gameManager.PlaySound(Sound.teleport);
         }
     }
 

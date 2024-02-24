@@ -185,6 +185,7 @@ MonoBehaviour:
   coinCollected: {fileID: 8300000, guid: f8ff6c3f7ed404a62be79221add7ae5c, type: 3}
   doorCollisionWhileClosed: {fileID: 8300000, guid: f18c201bb16b64a27b77af3ad5d628a9, type: 3}
   doorOpening: {fileID: 8300000, guid: 1c82ebad44f064b0ab5503ff1f4f5241, type: 3}
+  teleport: {fileID: 8300000, guid: faa036a8b417c4cee902c26ca6ea0fd7, type: 3}
   totalCollectedCoins: 0
 --- !u!4 &129871879
 Transform:
