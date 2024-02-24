@@ -70,7 +70,7 @@ public class Balloon : MonoBehaviour
     {
         transform.localScale = startingScale * 1.2f;
         animator.Play("ExplodeBalloon");
-        yield return new WaitForSeconds(.5f);
-        Destroy(this);
+        yield return new WaitForSeconds(.3f);
+        Destroy(gameObject);
     }
 }

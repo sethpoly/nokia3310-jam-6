@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager: MonoBehaviour
 {
@@ -61,9 +62,10 @@ public class GameManager: MonoBehaviour
         if(levels.Count - 1 >= nextIndex)
         {
             StartLevel(nextIndex);
-        } else
+        } else // Game must be over
         {
-            Debug.LogError("No next level found");
+            Debug.Log("No next level found. Loading Credits");
+            LoadCreditsScene();
         }
     }
 
@@ -155,6 +157,7 @@ public class GameManager: MonoBehaviour
         currentLevel.CollectCoin(coin);
         if(coin != null)
         {
+            coin.OnCollect();
             PlaySound(Sound.coinCollected);
         }
     }
@@ -221,5 +224,12 @@ public class GameManager: MonoBehaviour
             Sound.teleport => teleport,
             _ => balloonPop,
         };
+    }
+
+    private void LoadCreditsScene()
+    {
+        StartCoroutine(transitionHandler.LoadLevel(onCompletion: () => {
+            SceneManager.LoadScene("Credits");
+        }));
     }
 }
