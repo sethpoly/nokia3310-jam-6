@@ -157,6 +157,7 @@ public class GameManager: MonoBehaviour
         currentLevel.CollectCoin(coin);
         if(coin != null)
         {
+            coin.OnCollect();
             PlaySound(Sound.coinCollected);
         }
     }

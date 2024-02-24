@@ -11,7 +11,7 @@ public class MenuManager : MonoBehaviour
 
         if(AnyKeyPressed())
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Game");
         }
     }
 

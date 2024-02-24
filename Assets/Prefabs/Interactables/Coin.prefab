@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 7860833017821003003}
   - component: {fileID: 2072057156712557193}
   - component: {fileID: 1305144751077079358}
+  - component: {fileID: 3853303367521452089}
   m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
@@ -158,3 +159,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinSpeed: 200
   isSpinning: 0
+--- !u!95 &3853303367521452089
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970188786771212368}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8460706a4e7f4b1dae7ef7d579c2e0e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
