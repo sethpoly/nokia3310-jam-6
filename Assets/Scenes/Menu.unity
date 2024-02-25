@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3a6a77597994baeaac40e4cd8aaf8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showPressAnyKey: 0
+  showPressAnyKey: 1
   pressAnyKeyPrefab: {fileID: 1796605706}
 --- !u!1 &1796605706 stripped
 GameObject:
