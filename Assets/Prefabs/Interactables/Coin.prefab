@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spinSpeed: 200
   isSpinning: 0
+  coinCollectedPrefab: {fileID: 6630221611866579596, guid: ee1e1a4589eae4932b9706a877e86ede, type: 3}
 --- !u!95 &3853303367521452089
 Animator:
   serializedVersion: 4
@@ -167,7 +168,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4970188786771212368}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: b8460706a4e7f4b1dae7ef7d579c2e0e, type: 2}
   m_CullingMode: 0

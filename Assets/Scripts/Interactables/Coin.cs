@@ -4,6 +4,7 @@ public class Coin : MonoBehaviour
 {
     [SerializeField] private float spinSpeed;
     [SerializeField] private bool isSpinning = false;
+    [SerializeField] private GameObject coinCollectedPrefab;
     private Animator animator;
     private Quaternion startRotation;
 
@@ -31,8 +32,8 @@ public class Coin : MonoBehaviour
         {
             isSpinning = false;
             transform.rotation = startRotation;
-            animator.Play("Coin_Collect");
-            Destroy(gameObject, .4f);
+            Instantiate(coinCollectedPrefab, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
     }
 
