@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -27,6 +28,8 @@ public class GameManager: MonoBehaviour
     [SerializeField] private int totalCollectedCoins = 0;
     private Level currentLevel;
     private AudioSource audioSource;
+    private bool canRestart = true;
+    private readonly float restartCooldown = .75f; // Cooldown time in seconds
 
     void Awake()
     {
@@ -71,8 +74,10 @@ public class GameManager: MonoBehaviour
 
     public void RestartLevel()
     {
+        if(!canRestart) return;
         if (levels.Count - 1 >= currentLevelIndex) 
         {
+            StartCoroutine(StartRestartCooldown());
             StartCoroutine(transitionHandler.LoadLevel(onCompletion: () => {
                 var playerSpawnLocation = currentLevel.spawnLocation.position;
                 DisposeLevel(currentLevelIndex);
@@ -231,5 +236,12 @@ public class GameManager: MonoBehaviour
         StartCoroutine(transitionHandler.LoadLevel(onCompletion: () => {
             SceneManager.LoadScene("Credits");
         }));
+    }
+
+    private IEnumerator StartRestartCooldown()
+    {
+        canRestart = false;
+        yield return new WaitForSeconds(restartCooldown);
+        canRestart = true;
     }
 }
