@@ -7,6 +7,7 @@ public class PlayerMovement: MonoBehaviour
     private float activeSlowDownMultiplier = 0f;
     private float additionalPassiveSlowdown = 0f;
     private Rigidbody2D rb;
+    private TouchControls touchControls;
  
     private float horizontal;
     private readonly float vertical = -1;
@@ -17,6 +18,7 @@ public class PlayerMovement: MonoBehaviour
     void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
+        touchControls = FindObjectOfType<TouchControls>();
     }
 
     void FixedUpdate()
