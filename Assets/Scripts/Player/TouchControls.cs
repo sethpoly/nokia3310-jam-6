@@ -1,34 +1,40 @@
+using System;
 using UnityEngine;
 
 public class TouchControls : MonoBehaviour 
 {
+    public event Action<bool> OnRightEvent;
+    public event Action<bool> OnLeftEvent;
+    public event Action<bool> OnFloatEvent;
+
+
     public void OnRight()
     {
-        Debug.Log("On Right");
+        OnRightEvent.Invoke(true);
     }
 
     public void OnLeft()
     {
-        Debug.Log("On Left");
+        OnLeftEvent.Invoke(true);
     }
 
     public void OnFloat()
     {
-        Debug.Log("On Float");
+        OnFloatEvent.Invoke(true);
     }
 
     public void OnRightUp()
     {
-        Debug.Log("On Right Up");
+        OnRightEvent.Invoke(false);
     }
 
     public void OnLeftUp()
     {
-        Debug.Log("On Left Up");
+        OnLeftEvent.Invoke(false);
     }
 
     public void OnFloatUp()
     {
-        Debug.Log("On Float Up");
+        OnFloatEvent.Invoke(false);
     }
 }

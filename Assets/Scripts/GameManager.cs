@@ -30,6 +30,7 @@ public class GameManager: MonoBehaviour
     private AudioSource audioSource;
     private bool canRestart = true;
     private readonly float restartCooldown = .75f; // Cooldown time in seconds
+    private TouchControls touchControls;
 
     void Awake()
     {
@@ -42,6 +43,8 @@ public class GameManager: MonoBehaviour
         {
             Debug.LogError("Cannot start first level. No levels in list");
         }
+
+        SetupTouchControls();
     }
 
     void Update()
@@ -53,6 +56,29 @@ public class GameManager: MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
+    }
+
+    private void SetupTouchControls() 
+    {
+        touchControls = FindObjectOfType<TouchControls>();
+
+        if (SystemInfo.deviceType != DeviceType.Handheld)
+        {
+            touchControls.gameObject.SetActive(false);
+        } else if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            touchControls.OnLeftEvent += RestartTouchEvent;
+            touchControls.OnRightEvent += RestartTouchEvent;
+            touchControls.OnFloatEvent += RestartTouchEvent;
+        }
+    }
+
+    private void RestartTouchEvent(bool held)
+    {
+        if(!held && GameObject.FindGameObjectWithTag("RestartInterface") != null)
         {
             RestartLevel();
         }

@@ -18,7 +18,7 @@ public class PlayerMovement: MonoBehaviour
     void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
-        touchControls = FindObjectOfType<TouchControls>();
+        SetupTouchControls();
     }
 
     void FixedUpdate()
@@ -30,11 +30,44 @@ public class PlayerMovement: MonoBehaviour
 
     void Update()
     {
-        MovementInput();
+        WebMovementInput();
     }
 
-    private void MovementInput()
+    private void SetupTouchControls()
     {
+        touchControls = FindObjectOfType<TouchControls>();
+        if(touchControls != null)
+        {
+            touchControls.OnLeftEvent += OnTouchLeft;
+            touchControls.OnRightEvent += OnTouchRight;
+        }
+    }
+
+    private void OnTouchLeft(bool held)
+    {
+        if(held)
+        {
+            horizontal = -1;
+        } else 
+        {
+            horizontal = 0;
+        }
+    }
+
+    private void OnTouchRight(bool held)
+    {
+        if(held)
+        {
+            horizontal = 1;
+        } else 
+        {
+            horizontal = 0;
+        }
+    }
+
+    private void WebMovementInput()
+    {
+        if (SystemInfo.deviceType == DeviceType.Handheld) return;
         horizontal = Input.GetAxisRaw("Horizontal");
     }
 
