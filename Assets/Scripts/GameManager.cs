@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +33,19 @@ public class GameManager: MonoBehaviour
     private bool canRestart = true;
     private readonly float restartCooldown = .75f; // Cooldown time in seconds
     private TouchControls touchControls;
+
+    #region WebGL is on mobile check
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+
+    public static bool isMobile()
+    {
+        #if !UNITY_EDITOR && UNITY_WEBGL 
+            return IsMobile();
+        #endif
+        return false;
+    }
+    #endregion
 
     void Awake()
     {
@@ -65,14 +80,14 @@ public class GameManager: MonoBehaviour
     {
         touchControls = FindObjectOfType<TouchControls>();
 
-        if (SystemInfo.deviceType != DeviceType.Handheld)
-        {
-            touchControls.gameObject.SetActive(false);
-        } else if (SystemInfo.deviceType == DeviceType.Handheld)
+        if (isMobile())
         {
             touchControls.OnLeftEvent += RestartTouchEvent;
             touchControls.OnRightEvent += RestartTouchEvent;
             touchControls.OnFloatEvent += RestartTouchEvent;
+        } else
+        {
+            touchControls.gameObject.SetActive(false);
         }
     }
 

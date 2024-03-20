@@ -89,7 +89,7 @@ public class BalloonController: MonoBehaviour
 
     private void BalloonInput()
     {
-        if (SystemInfo.deviceType == DeviceType.Handheld) return;
+        if (GameManager.isMobile()) return;
         actionHeld = Input.GetKey(KeyCode.Space);
     }
 
