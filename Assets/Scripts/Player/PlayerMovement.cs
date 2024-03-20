@@ -7,6 +7,7 @@ public class PlayerMovement: MonoBehaviour
     private float activeSlowDownMultiplier = 0f;
     private float additionalPassiveSlowdown = 0f;
     private Rigidbody2D rb;
+    private TouchControls touchControls;
  
     private float horizontal;
     private readonly float vertical = -1;
@@ -17,6 +18,7 @@ public class PlayerMovement: MonoBehaviour
     void Awake()
     {
         rb = GetComponentInParent<Rigidbody2D>();
+        SetupTouchControls();
     }
 
     void FixedUpdate()
@@ -28,11 +30,44 @@ public class PlayerMovement: MonoBehaviour
 
     void Update()
     {
-        MovementInput();
+        WebMovementInput();
     }
 
-    private void MovementInput()
+    private void SetupTouchControls()
     {
+        touchControls = FindObjectOfType<TouchControls>();
+        if(touchControls != null)
+        {
+            touchControls.OnLeftEvent += OnTouchLeft;
+            touchControls.OnRightEvent += OnTouchRight;
+        }
+    }
+
+    private void OnTouchLeft(bool held)
+    {
+        if(held)
+        {
+            horizontal = -1;
+        } else 
+        {
+            horizontal = 0;
+        }
+    }
+
+    private void OnTouchRight(bool held)
+    {
+        if(held)
+        {
+            horizontal = 1;
+        } else 
+        {
+            horizontal = 0;
+        }
+    }
+
+    private void WebMovementInput()
+    {
+        if (GameManager.isMobile()) return;
         horizontal = Input.GetAxisRaw("Horizontal");
     }
 

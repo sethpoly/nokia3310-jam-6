@@ -13,6 +13,7 @@ public class BalloonController: MonoBehaviour
     [SerializeField] private float secondsUntilBurst = 2f;
     [SerializeField] private GameObject balloonLocation;
     private PlayerController playerController;
+    private TouchControls touchControls;
     [SerializeField] private GameObject stringRenderer;
     private bool actionHeld = false;
     private List<GameObject> balloons = new();
@@ -22,6 +23,7 @@ public class BalloonController: MonoBehaviour
     {
         playerController = GetComponentInParent<PlayerController>();
         gameManager = FindObjectOfType<GameManager>();
+        SetupTouchControls();
     }
 
     void Start()
@@ -42,6 +44,20 @@ public class BalloonController: MonoBehaviour
 
         // Monitor balloon input and start/stop timers to burst balloons 
         BalloonBurstMonitor();
+    }
+
+    private void SetupTouchControls()
+    {
+        touchControls = FindObjectOfType<TouchControls>();
+        if(touchControls != null)
+        {
+            touchControls.OnFloatEvent += OnTouchFloat;
+        }
+    }
+
+    private void OnTouchFloat(bool held)
+    {
+        actionHeld = held;
     }
 
     private void InitializeBalloons() 
@@ -73,6 +89,7 @@ public class BalloonController: MonoBehaviour
 
     private void BalloonInput()
     {
+        if (GameManager.isMobile()) return;
         actionHeld = Input.GetKey(KeyCode.Space);
     }
 

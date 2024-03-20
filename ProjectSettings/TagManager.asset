@@ -15,6 +15,7 @@ TagManager:
   - RestartInterface
   - R_Key
   - Door_Random
+  - TouchControls
   layers:
   - Default
   - TransparentFX

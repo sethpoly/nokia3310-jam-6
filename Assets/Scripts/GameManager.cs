@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -30,6 +32,20 @@ public class GameManager: MonoBehaviour
     private AudioSource audioSource;
     private bool canRestart = true;
     private readonly float restartCooldown = .75f; // Cooldown time in seconds
+    private TouchControls touchControls;
+
+    #region WebGL is on mobile check
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+
+    public static bool isMobile()
+    {
+        #if !UNITY_EDITOR && UNITY_WEBGL 
+            return IsMobile();
+        #endif
+        return false;
+    }
+    #endregion
 
     void Awake()
     {
@@ -42,6 +58,8 @@ public class GameManager: MonoBehaviour
         {
             Debug.LogError("Cannot start first level. No levels in list");
         }
+
+        SetupTouchControls();
     }
 
     void Update()
@@ -53,6 +71,29 @@ public class GameManager: MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
+    }
+
+    private void SetupTouchControls() 
+    {
+        touchControls = FindObjectOfType<TouchControls>();
+
+        if (isMobile())
+        {
+            touchControls.OnLeftEvent += RestartTouchEvent;
+            touchControls.OnRightEvent += RestartTouchEvent;
+            touchControls.OnFloatEvent += RestartTouchEvent;
+        } else
+        {
+            touchControls.gameObject.SetActive(false);
+        }
+    }
+
+    private void RestartTouchEvent(bool held)
+    {
+        if(!held && GameObject.FindGameObjectWithTag("RestartInterface") != null)
         {
             RestartLevel();
         }
